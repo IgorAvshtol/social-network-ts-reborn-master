@@ -29,7 +29,12 @@ const Dialogs = (props: stateType) => {
                 {dialogElements}
             </div>
             <div className={s.messages}>
-                {messageElement}
+                <div>{messageElement}</div>
+                <div>
+                    <div><textarea placeholder="Enter your message"/> </div>
+                    <div><button>Send</button></div>
+                </div>
+               
 
             </div>
         </div>
