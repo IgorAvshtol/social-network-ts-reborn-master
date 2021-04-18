@@ -52,7 +52,7 @@ export type ActionsTypes =
     | ReturnType<typeof sendMessageCreator>
     | ReturnType<typeof updateNewMessageBodyCreator>
 
-const store: StoreType = {
+export const store: StoreType = {
     _state: {
         profilePage: {
             posts: [

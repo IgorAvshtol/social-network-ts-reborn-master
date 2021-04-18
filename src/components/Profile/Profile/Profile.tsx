@@ -1,5 +1,6 @@
 import React from 'react';
 import MyPosts from "../MyPosts/Post/MyPosts";
+import {store} from "../../../redux/store";
 import {ProfilePageType} from "../../../redux/store";
 import {ActionsTypes} from "../../../redux/store";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
@@ -16,9 +17,10 @@ const Profile = (props: profileType) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPostsContainer post={props.profilePage}
-                     dispatch={props.dispatch}
-                     newPostText={props.newPostText}
+            <MyPostsContainer
+                post={props.profilePage}
+                              dispatch={props.dispatch}
+                              newPostText={props.newPostText}
             />
         </div>
     )

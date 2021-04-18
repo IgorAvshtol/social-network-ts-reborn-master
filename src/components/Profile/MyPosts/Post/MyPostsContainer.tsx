@@ -1,6 +1,6 @@
 import Post from "./Post";
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../../redux/profile-reducer";
-import {ProfilePageType} from "../../../../redux/store";
+import {ProfilePageType, StoreType} from "../../../../redux/store";
 import s from './MyPosts.module.css';
 import React, {ChangeEvent} from "react";
 import {ActionsTypes} from "../../../../redux/store";
@@ -11,17 +11,21 @@ type MyPostsType = {
     post: ProfilePageType
     newPostText: string
     dispatch: (action: ActionsTypes) => void
+
 }
 
 
 const MyPostsContainer = (props: MyPostsType) => {
 
-    let postsElement = props.post.posts.map(p =>
-        <Post message={p.message} likesCount={p.likesCount}/>
-    )
+    // let postsElement = props.post.posts.map(p =>
+    //     <Post message={p.message} likesCount={p.likesCount}/>
+    //
+
+
 
 
     const addPost = () => {
+
         props.dispatch(addPostActionCreator(props.newPostText))
     }
 
