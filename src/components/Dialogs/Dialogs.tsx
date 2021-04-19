@@ -8,9 +8,10 @@ import {ActionsTypes} from "../../redux/store";
 
 
 type stateType = {
-    data: MessagePageType
-    dispatch: (action: ActionsTypes) => void
+    onSendMessageClick: () => void
+    onNewMessageChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
     newMessageBody: string
+    data: MessagePageType
 
 }
 
@@ -27,11 +28,11 @@ const Dialogs = (props: stateType) => {
     )
 
     const onSendMessageClick = () => {
-        props.dispatch(sendMessageCreator(props.newMessageBody))
+        props.onSendMessageClick()
     }
 
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateNewMessageBodyCreator(e.currentTarget.value))
+        props.onNewMessageChange(e)
     }
 
 

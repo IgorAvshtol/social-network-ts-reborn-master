@@ -109,28 +109,6 @@ export const store: StoreType = {
         this._state.messagePage = messageReducer(this._state.messagePage, action)
         this._rerenderEntireTree()
 
-
-        // if (action.type === "ADD-POST") {
-        //     let newPost: PostsType = {
-        //         id: 5,
-        //         message: action.newPostText,
-        //         likesCount: 0
-        //     }
-        //     this._state.profilePage.posts.push(newPost)
-        //     this._state.profilePage.newPostText = ""
-        //     this._rerenderEntireTree()
-        // } else if (action.type === "UPDATE-NEW-POST-TEXT") {
-        //     this._state.profilePage.newPostText = action.newText
-        //     this._rerenderEntireTree()
-        // } else if (action.type === "UPDATE-NEW-MESSAGE-BODY") {
-        //     this._state.messagePage.newMessageBody = action.body
-        //     this._rerenderEntireTree()
-        // } else if (action.type === "SEND-MESSAGE") {
-        //     let body = this._state.messagePage.newMessageBody
-        //     this._state.messagePage.newMessageBody = ""
-        //     this._state.messagePage.messages.push({id: 6, message: body})
-        //     this._rerenderEntireTree()
-        // }
     }
 }
 

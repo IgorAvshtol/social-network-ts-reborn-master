@@ -39,10 +39,11 @@ const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 const SEND_MESSAGE = "SEND-MESSAGE";
 
 
-export const sendMessageCreator = (newMessageBody: string) => {
+export const sendMessageCreator = () => {
     return {
         type: SEND_MESSAGE,
-        newMessageBody: newMessageBody
+        // newMessageBody: newMessageBody
+
     } as const
 }
 

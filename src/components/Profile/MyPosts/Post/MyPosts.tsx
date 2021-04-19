@@ -9,7 +9,7 @@ type MyPostsType = {
     // post: Array<PostsType>
     post: ProfilePageType
     newPostText: string
-    dispatch?: (action: ActionsTypes) => void
+    // dispatch?: (action: ActionsTypes) => void
     addPost: () => void
     updateNewPostText: (e: ChangeEvent<HTMLTextAreaElement>) => void
 }
