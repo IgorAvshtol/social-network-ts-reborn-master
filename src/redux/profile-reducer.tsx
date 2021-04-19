@@ -19,13 +19,13 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
             }
             state.posts.push(newPost)
             state.newPostText = ""
-            break;
+            return state;
         case "UPDATE-NEW-POST-TEXT":
             state.newPostText = action.newText
-            break;
+            return state
+        default:
+            return state
     }
-
-    return state
 }
 
 

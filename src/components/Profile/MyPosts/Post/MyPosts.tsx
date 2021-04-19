@@ -6,8 +6,8 @@ import {ActionsTypes} from "../../../../redux/store";
 
 
 type MyPostsType = {
-    // post: Array<PostsType>
-    post: ProfilePageType
+    post: Array<PostsType>
+    // post: ProfilePageType
     newPostText: string
     // dispatch?: (action: ActionsTypes) => void
     addPost: () => void
@@ -17,7 +17,7 @@ type MyPostsType = {
 
 const MyPosts = (props: MyPostsType) => {
 
-    let postsElement = props.post.posts.map(p =>
+    let postsElement = props.post.map(p =>
         <Post message={p.message} likesCount={p.likesCount}/>
     )
 
