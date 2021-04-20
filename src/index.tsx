@@ -10,7 +10,7 @@ import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 
 
-let rerenderEntireTree = () =>
+
     ReactDOM.render(
         <BrowserRouter>
             <Provider  store={store}>
@@ -21,7 +21,8 @@ let rerenderEntireTree = () =>
     );
 
 
-rerenderEntireTree()
+// rerenderEntireTree()
 
-store.subscribe(rerenderEntireTree)
-
+//перерисуем всё дерево
+// store.subscribe(rerenderEntireTree)
+//
