@@ -51,6 +51,8 @@ export type ForReduxStoreType = {
     dispatch: (action: ActionsTypes) => void
 }
 
+
+
 export type ActionsTypes =
     ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof updateNewPostTextActionCreator>

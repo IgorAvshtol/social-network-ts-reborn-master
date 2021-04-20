@@ -1,15 +1,12 @@
 import Post from "./Post";
-import {PostsType, ProfilePageType} from "../../../../redux/store";
+import {PostsType} from "../../../../redux/store";
 import s from './MyPosts.module.css';
 import React, {ChangeEvent} from "react";
-import {ActionsTypes} from "../../../../redux/store";
 
 
 type MyPostsType = {
     post: Array<PostsType>
-    // post: ProfilePageType
     newPostText: string
-    // dispatch?: (action: ActionsTypes) => void
     addPost: () => void
     updateNewPostText: (e: ChangeEvent<HTMLTextAreaElement>) => void
 }
