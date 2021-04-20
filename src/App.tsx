@@ -14,7 +14,7 @@ type AppType = {
     // state: RootStateType
     // dispatch: (action: ActionsTypes) => void
     // store: AppStateType
-    store: ForReduxStoreType
+    // store: ForReduxStoreType
 
 }
 
@@ -36,7 +36,8 @@ const App = (props: AppType) => {
                     />}/>
 
                     <Route path='/profile'
-                           render={() => <Profile store={props.store}
+                           render={() => <Profile
+                               // store={props.store}
                                // profilePage={props.state.profilePage}
                                // dispatch={props.dispatch}
                                // newPostText={props.state.profilePage.newPostText}

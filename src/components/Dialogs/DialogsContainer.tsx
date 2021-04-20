@@ -8,6 +8,7 @@ import {ActionsTypes} from "../../redux/store";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
+import {Dispatch} from "redux";
 
 //
 // type MyDialogsType = {
@@ -48,7 +49,7 @@ import {AppStateType} from "../../redux/redux-store";
         }
     }
 
-    let mapDispatchToProps = (dispatch: (action: ActionsTypes) => void) => {
+    let mapDispatchToProps = (dispatch: Dispatch) => {
         return {
             updateNewMessageBody: () => {
                 dispatch(sendMessageCreator())

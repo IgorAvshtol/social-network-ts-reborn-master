@@ -11,7 +11,7 @@ type profileType = {
     // profilePage: ProfilePageType
     // newPostText: string
     // dispatch: (action: ActionsTypes) => void
-    store: ForReduxStoreType
+    // store: ForReduxStoreType
 
 
 
@@ -23,7 +23,7 @@ const Profile = (props: profileType) => {
         <div>
             <ProfileInfo/>
             <MyPostsContainer
-                store={store}
+                // store={store}
                 // post={props.profilePage}
                 // dispatch={props.dispatch}
                 // newPostText={props.newPostText}
