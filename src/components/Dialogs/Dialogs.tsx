@@ -21,12 +21,12 @@ const Dialogs = (props: MyDialogsType) => {
 
 
     let dialogElements = props.messagePage.dialogs.map(dialog =>
-        <DialogItem name={dialog.name} id={dialog.id}/>
+        <DialogItem name={dialog.name} id={dialog.id} key={dialog.id}/>
     )
 
 
     let messageElement = props.messagePage.messages.map(message =>
-        <Message message={message.message}/>
+        <Message message={message.message} key={message.id}/>
     )
 
     const onSendMessageClick = () => {
