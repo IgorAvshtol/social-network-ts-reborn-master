@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile/Profile";
 import {BrowserRouter, Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import Users from "./components/Users/Users";
+import UsersContainer from "./components/Users/UsersContainer";
 
 
 type AppType = {
@@ -29,7 +29,7 @@ const App = (props: AppType) => {
                     <Route path='/profile'
                            render={() => <Profile/>}/>
                     <Route path='/users'
-                           render={() => <Users/>}/>
+                           render={() => <UsersContainer/>}/>
                 </div>
             </div>
         </BrowserRouter>

@@ -37,7 +37,6 @@ const Dialogs = (props: MyDialogsType) => {
         props.sendMessage(e.currentTarget.value)
     }
 
-
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>

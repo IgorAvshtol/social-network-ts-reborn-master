@@ -43,7 +43,7 @@ import {Dispatch} from "redux";
 //         //             data={state.messagePage}
 //     />
 // }
-    let mapStateToProps = (state: RootStateType) => {
+    let mapStateToProps = (state: AppStateType) => {
         return {
             messagePage: state.messagePage
         }
@@ -57,7 +57,6 @@ import {Dispatch} from "redux";
             sendMessage: (body: string) => {
                 dispatch(updateNewMessageBodyCreator(body))
             }
-
         }
     }
  const DialogsContainer = connect(mapStateToProps,mapDispatchToProps) (Dialogs)

@@ -1,49 +1,24 @@
 let initialState = {
-    users: [
-        {
-            id: 1,
-            followed: false,
-            fullname: 'Roma',
-            status: 'Give me a money',
-            location: {city: 'Minsk', country: 'Belarus'}
-        },
-        {
-            id: 2,
-            followed: true,
-            fullname: 'Grisha',
-            status: 'What is with the money',
-            location: {city: 'Krasnoselsky', country: 'Belarus'}
-        },
-        {
-            id: 3,
-            followed: true,
-            fullname: 'Georg',
-            status: 'How are you?',
-            location: {city: 'Krasnoselsky', country: 'Belarus'}
-        },
-        {
-            id: 4,
-            followed: true,
-            fullname: 'Marina',
-            status: 'Where are your girl?',
-            location: {city: 'Krasnoselsky', country: 'Belarus'}
-        },
-    ]
+    users: []
 }
 
-type UsersStateType = {
+export type UsersStateType = {
     users: Array<UsersType>
 }
 
-type UsersType = {
+export type UsersType = {
     id: number,
+    photos: {
+        small: string,
+        large: string
+    },
     followed: boolean,
-    fullname: string,
+    name: string,
     status: string,
     location: LocationUsersType
 }
 
-type LocationUsersType = {
+export type LocationUsersType = {
     city: string,
     country: string
 }

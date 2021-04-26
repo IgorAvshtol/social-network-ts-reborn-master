@@ -6,6 +6,7 @@ import {sendMessageCreator, updateNewMessageBodyCreator} from "../../../../redux
 import {connect} from "react-redux";
 import Dialogs from "../../../Dialogs/Dialogs";
 import {Dispatch} from "redux";
+import {AppStateType} from "../../../../redux/redux-store";
 
 //
 // type MyPostsType = {
@@ -35,7 +36,7 @@ import {Dispatch} from "redux";
 //                     newPostText={state.profilePage.newPostText}
 //                     addPost={addPost}/>
 // }
-let mapStateToProps = (state: RootStateType) => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         post: state.profilePage.posts,
         newPostText: state.profilePage.newPostText
