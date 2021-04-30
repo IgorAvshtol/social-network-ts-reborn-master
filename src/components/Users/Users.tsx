@@ -1,5 +1,5 @@
 import React from 'react';
-import  s from './users.module.css';
+import  styles from './users.module.css';
 import {UsersType} from "../../redux/users-reducer";
 import axios from "axios";
 import userPhoto from '../../assets/images/users.jpg'
@@ -13,8 +13,8 @@ type UsersComponentType = {
 }
 
 class Users extends React.Component<UsersComponentType> {
-    constructor(props: UsersComponentType) {
-        super(props);
+
+    componentDidMount() {
         axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
             this.props.setusers(response.data.items)
         })
@@ -23,11 +23,18 @@ class Users extends React.Component<UsersComponentType> {
     render() {
         return (
             <div>
+                <div>
+                    <span>1</span>
+                    <span className={styles.selectedPage}>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                </div>
                 {
                     this.props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <img src={u.photos.small != null ? u.photos.small : userPhoto} className={s.userPhoto}/>
+                        <img src={u.photos.small != null ? u.photos.small : userPhoto} className={styles.userPhoto}/>
                     </div>
                     <div>
                         { u.followed

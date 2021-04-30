@@ -1,16 +1,19 @@
 import React from "react";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import Userssss from "./Userssss";
 import {AppStateType} from "../../redux/redux-store";
 import {followAC, setusersAC, unfollowAC, UsersType} from "../../redux/users-reducer";
 import Users from "./Users";
 
+// , initialState: UsersInitialStateType
 
 let mapStateToProps = (state: AppStateType) => {
     return {
-        users: state.usersPage.users
-    }
+        users: state.usersPage.users,
+        pageSize: state.usersPage.pageSize,
+        totalUsersCount: state.usersPage.totalUsersCount,
+
+}
 }
 
 let mapDispatchToProps = (dispatch: Dispatch) => {

@@ -8,16 +8,16 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 
 
-type AppType = {
-    // state: RootStateType
-    // dispatch: (action: ActionsTypes) => void
-    // store: AppStateType
-    // store: ForReduxStoreType
+// type AppType = {
+//     // state: RootStateType
+//     // dispatch: (action: ActionsTypes) => void
+//     // store: AppStateType
+//     // store: ForReduxStoreType
+//
+// }
 
-}
 
-
-const App = (props: AppType) => {
+const App = () => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>

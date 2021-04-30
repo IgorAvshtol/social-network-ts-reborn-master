@@ -1,9 +1,20 @@
+
+
 let initialState = {
-    users: []
+    users: [],
+    pageSize: 5,
+    totalUsersCount: 0
 }
 
 export type UsersStateType = {
-    users: Array<UsersType>
+    users: Array<UsersType>,
+    pageSize: number,
+    totalUsersCount: number
+}
+
+export type UsersInitialStateType = {
+    pageSize: number,
+    totalUsersCount: number
 }
 
 export type UsersType = {
