@@ -12,10 +12,6 @@ export type UsersStateType = {
     totalUsersCount: number
 }
 
-export type UsersInitialStateType = {
-    pageSize: number,
-    totalUsersCount: number
-}
 
 export type UsersType = {
     id: number,
