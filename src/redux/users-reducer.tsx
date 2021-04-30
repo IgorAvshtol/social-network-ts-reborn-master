@@ -3,13 +3,15 @@
 let initialState = {
     users: [],
     pageSize: 5,
-    totalUsersCount: 0
+    totalUsersCount: 25,
+    currentPage: 1  ///cо старта будет страница номер 1
 }
 
 export type UsersStateType = {
     users: Array<UsersType>,
     pageSize: number,
-    totalUsersCount: number
+    totalUsersCount: number,
+    currentPage: number
 }
 
 
@@ -53,19 +55,22 @@ const usersReducer = (state: UsersStateType = initialState, action: FollowedType
                 })
             }
         case "SET-USERS":
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: action.users}
+        case "SET-CURRENT-PAGE":
+            return {...state, currentPage: action.currentPage}
         default:
             return state
     }
 }
 
 
-type FollowedTypes = ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setusersAC>
+type FollowedTypes = ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setusersAC> | ReturnType<typeof setCurrentPageAC>
 
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET-USERS";
+const SET_CURRENT_PAGE = "SET-CURRENT-PAGE";
 
 export const followAC = (userId: number) => {
     return {
@@ -82,6 +87,12 @@ export const unfollowAC = (userId: number) => {
 export const setusersAC = (users: Array<UsersType>) => {
     return {
         type: SET_USERS, users
+    } as const
+}
+
+export const setCurrentPageAC = (currentPage: number) => {
+    return {
+        type: SET_CURRENT_PAGE, currentPage
     } as const
 }
 
