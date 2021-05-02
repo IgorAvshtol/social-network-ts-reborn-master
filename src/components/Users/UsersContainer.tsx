@@ -10,7 +10,7 @@ import {
     unfollowAC,
     UsersType
 } from "../../redux/users-reducer";
-import Users from "./Users";
+import UsersAPIComponent from "./UsersAPIComponent";
 
 // , initialState: UsersInitialStateType
 
@@ -42,7 +42,7 @@ let mapDispatchToProps = (dispatch: Dispatch) => {
         }
     }
 }
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
+const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
 
 
 export default UsersContainer
