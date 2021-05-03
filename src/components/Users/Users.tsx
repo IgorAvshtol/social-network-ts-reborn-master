@@ -20,14 +20,14 @@ let Users = (props: UsersFunctionalType) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-        return <div>
-            <div>
-                {pages.map(p => {
-                    return <span className={styles.selectedPage} onClick={() => props.onPageChanged(p)}>{p}</span>
-                })}
-            </div>
-            {
-                props.users.map(u => <div key={u.id}>
+    return <div>
+        <div>
+            {pages.map(p => {
+                return <span className={styles.selectedPage} onClick={() => props.onPageChanged(p)}>{p}</span>
+            })}
+        </div>
+        {
+            props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
                         <img src={u.photos.small != null ? u.photos.small : userPhoto} className={styles.userPhoto}/>
@@ -42,7 +42,7 @@ let Users = (props: UsersFunctionalType) => {
                             }}>Follow</button>}
                     </div>
                 </span>
-                    <span>
+                <span>
                     <span>
                         <div>{u.name}</div><div>{u.status}</div>
                     </span>
@@ -50,10 +50,10 @@ let Users = (props: UsersFunctionalType) => {
                         <div>{'u.location.city'}</div><div>{'u.location.country'}</div>
                     </span>
                 </span>
-                </div>)
-            }
-            <button>More</button>
-        </div>
+            </div>)
+        }
+        <button>More</button>
+    </div>
 
 }
 

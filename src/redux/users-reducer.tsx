@@ -1,17 +1,17 @@
-
-
 let initialState = {
     users: [],
     pageSize: 5,
     totalUsersCount: 25,
-    currentPage: 1  ///cо старта будет страница номер 1
+    currentPage: 1,  ///cо старта будет страница номер 1
+    isFatching: true
 }
 
 export type UsersStateType = {
     users: Array<UsersType>,
     pageSize: number,
     totalUsersCount: number,
-    currentPage: number
+    currentPage: number,
+    isFatching: boolean
 }
 
 
@@ -60,13 +60,21 @@ const usersReducer = (state: UsersStateType = initialState, action: FollowedType
             return {...state, currentPage: action.currentPage}
         case "SET-TOTAL-USERS-COUNT":
             return {...state, totalUsersCount: action.totalUsersCount}
+        case "TOGGLE-IS-FETCHING":
+            return {...state, isFatching: action.isFatching}
         default:
             return state
     }
 }
 
 
-type FollowedTypes = ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setusersAC> | ReturnType<typeof setCurrentPageAC> | ReturnType<typeof setTotalUsersCountAC>
+type FollowedTypes =
+    ReturnType<typeof followAC>
+    | ReturnType<typeof unfollowAC>
+    | ReturnType<typeof setusersAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalUsersCountAC>
+    | ReturnType<typeof toggleIsFatchingAC>
 
 
 const FOLLOW = "FOLLOW";
@@ -74,6 +82,7 @@ const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET-USERS";
 const SET_CURRENT_PAGE = "SET-CURRENT-PAGE";
 const SET_USER_TOTAL_COUNT = "SET-TOTAL-USERS-COUNT";
+const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
 
 export const followAC = (userId: number) => {
     return {
@@ -102,6 +111,12 @@ export const setCurrentPageAC = (currentPage: number) => {
 export const setTotalUsersCountAC = (totalUsersCount: number) => {
     return {
         type: SET_USER_TOTAL_COUNT, totalUsersCount
+    } as const
+}
+
+export const toggleIsFatchingAC = (isFatching: boolean) => {
+    return {
+        type: TOGGLE_IS_FETCHING, isFatching
     } as const
 }
 
