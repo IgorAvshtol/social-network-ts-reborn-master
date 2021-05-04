@@ -3,11 +3,11 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setusersAC, toggleIsFatchingAC,
-    unfollowAC,
+    follow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setusers, toggleIsFatching,
+    unfollow,
     UsersType
 } from "../../redux/users-reducer";
 import axios from "axios";
@@ -76,29 +76,29 @@ let mapStateToProps = (state: AppStateType) => {
     }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch) => {
-    return {
-        follow: (userId: number) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId: number) => {
-            dispatch(unfollowAC(userId))
-        },
-        setusers: (users: Array<UsersType>) => {
-            dispatch(setusersAC(users))
-        },
-        setCurrentPage: (currentPage: number) => {
-            dispatch(setCurrentPageAC(currentPage))
-        },
-        setTotalUsersCount: (totalCount: number) => {
-            dispatch(setTotalUsersCountAC(totalCount))
-        },
-        toggleIsFatching: (isFatching: boolean) => {
-            dispatch(toggleIsFatchingAC(isFatching))
-        }
-    }
-}
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersСontainer)
+// let mapDispatchToProps = (dispatch: Dispatch) => {
+//     return {
+//         follow: (userId: number) => {
+//             dispatch(followAC(userId))
+//         },
+//         unfollow: (userId: number) => {
+//             dispatch(unfollowAC(userId))
+//         },
+//         setusers: (users: Array<UsersType>) => {
+//             dispatch(setusersAC(users))
+//         },
+//         setCurrentPage: (currentPage: number) => {
+//             dispatch(setCurrentPageAC(currentPage))
+//         },
+//         setTotalUsersCount: (totalCount: number) => {
+//             dispatch(setTotalUsersCountAC(totalCount))
+//         },
+//         toggleIsFatching: (isFatching: boolean) => {
+//             dispatch(toggleIsFatchingAC(isFatching))
+//         }
+//     }
+// }
+const UsersContainer = connect(mapStateToProps, {follow, unfollow, setusers, setCurrentPage, setTotalUsersCount, toggleIsFatching})(UsersСontainer)
 
 
 export default UsersContainer
