@@ -1,5 +1,4 @@
-import {MessagePageType} from "./store";
-import {ActionsTypes} from "./store";
+import {ProfilePageType} from "./profile-reducer";
 
 let initialState = {
     messages: [
@@ -16,7 +15,30 @@ let initialState = {
     newMessageBody: ""
 }
 
-const messageReducer = (state: MessagePageType = initialState, action: ActionsTypes) => {
+type MessageType = {
+    id: number
+    message: string
+}
+
+type DialogsType = {
+    id: number
+    name: string
+}
+
+
+export type MessagePageType = {
+    messages: Array<MessageType>
+    dialogs: Array<DialogsType>
+    newMessageBody: string
+}
+
+export type RootStateType = {
+    profilePage: ProfilePageType
+    messagePage: MessagePageType
+    sidebar?: string
+}
+
+const messageReducer = (state: MessagePageType = initialState, action: MessageReducerActionsTypes) => {
 
 
     switch (action.type) {
@@ -46,6 +68,10 @@ export default messageReducer
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 const SEND_MESSAGE = "SEND-MESSAGE";
 
+
+export type MessageReducerActionsTypes =
+    ReturnType<typeof sendMessageCreator>
+    | ReturnType<typeof updateNewMessageBodyCreator>
 
 export const sendMessageCreator = () => {
     return {
