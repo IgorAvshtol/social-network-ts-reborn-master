@@ -1,29 +1,18 @@
 import React from 'react';
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import MyPostsContainer from "../MyPosts/Post/MyPostsContainer";
+import {MapStatePropsType} from "./ProfileContainer";
+import {ProfileType} from "../../../redux/profile-reducer";
 
-
-type profileType = {
-    // profilePage: ProfilePageType
-    // newPostText: string
-    // dispatch: (action: ActionsTypes) => void
-    // store: ForReduxStoreType
-
-
-
+type ProfileComponentType = {
+    profile: ProfileType
 }
 
-
-const Profile = (props: profileType) => {
+const Profile = (props: ProfileComponentType) => {
     return (
         <div>
-            <ProfileInfo/>
-            <MyPostsContainer
-                // store={store}
-                // post={props.profilePage}
-                // dispatch={props.dispatch}
-                // newPostText={props.newPostText}
-            />
+            <ProfileInfo profile={props.profile}/>
+            <MyPostsContainer/>
         </div>
     )
 }

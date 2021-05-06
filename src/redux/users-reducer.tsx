@@ -32,7 +32,7 @@ export type LocationUsersType = {
     country: string
 }
 
-const usersReducer = (state: UsersStateType = initialState, action: FollowedTypes) => {
+const usersReducer = (state: UsersStateType = initialState, action: FollowedTypes): UsersStateType => {
     switch (action.type) {
         case "FOLLOW":
             return {
