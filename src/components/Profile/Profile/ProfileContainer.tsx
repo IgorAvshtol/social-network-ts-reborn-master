@@ -4,7 +4,7 @@ import {AppStateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
 import Profile from "./Profile";
 import {ProfileType, setUserProfile} from "../../../redux/profile-reducer";
-import {RouteComponentProps, withRouter } from 'react-router-dom';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 
 export type ProfileContainerType = {
     profile: ProfileType
@@ -23,7 +23,6 @@ type OwnPropsType = ProfileContainerType
 type OwnProfileContainerType = RouteComponentProps<PathParamsType> & OwnPropsType
 
 class ProfileContainer extends React.Component<OwnProfileContainerType> {
-
 
 
     componentDidMount() {

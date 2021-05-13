@@ -2,7 +2,7 @@ import styles from "./users.module.css";
 import userPhoto from "../../assets/images/users.jpg";
 import React from "react";
 import {UsersType} from "../../redux/users-reducer";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import axios from "axios";
 
 
@@ -44,7 +44,7 @@ let Users = (props: UsersFunctionalType) => {
                                 axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
                                     withCredentials: true,
                                     headers: {
-                                        "API-KEY" : "38c3a417-44c2-476d-ad1b-ea982c1c54f6"
+                                        "API-KEY": "38c3a417-44c2-476d-ad1b-ea982c1c54f6"
                                     }
                                 })
                                     .then(response => {
@@ -58,7 +58,7 @@ let Users = (props: UsersFunctionalType) => {
                                 axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
                                     withCredentials: true,
                                     headers: {
-                                        "API-KEY" : "38c3a417-44c2-476d-ad1b-ea982c1c54f6"
+                                        "API-KEY": "38c3a417-44c2-476d-ad1b-ea982c1c54f6"
                                     }
                                 })
                                     .then(response => {

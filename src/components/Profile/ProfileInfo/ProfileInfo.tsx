@@ -8,7 +8,6 @@ type ProfileInfoComponentType = {
 }
 
 
-
 const ProfileInfo = (props: ProfileInfoComponentType) => {
     return (<div>
             <img

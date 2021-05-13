@@ -9,9 +9,9 @@ import {
     unfollow,
     UsersType
 } from "../../redux/users-reducer";
-import axios from "axios";
 import Users from "./Users";
 import loader from "./../../assets/images/loader.png"
+import { usersAPI} from "../../api/api";
 
 type UsersComponentType = {
     users: Array<UsersType>
@@ -31,28 +31,19 @@ class UsersСontainer extends React.Component<UsersComponentType> {
 
     componentDidMount() {
         this.props.toggleIsFatching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
-            {
-                withCredentials: true
-            })
-            .then(response => {
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
                 this.props.toggleIsFatching(false)
-                this.props.setusers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setusers(data.items)
+                this.props.setTotalUsersCount(data.totalCount)
             })
     }
 
-    onPageChanged = (p: number) => {
-        this.props.setCurrentPage(p)
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
         this.props.toggleIsFatching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`,
-            {
-                withCredentials: true
-            }
-        )
-            .then(response => {
+        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
                 this.props.toggleIsFatching(false)
-                this.props.setusers(response.data.items)
+                this.props.setusers(data.items)
             })
     }
 
