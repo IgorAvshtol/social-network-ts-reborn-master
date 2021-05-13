@@ -31,7 +31,10 @@ class UsersСontainer extends React.Component<UsersComponentType> {
 
     componentDidMount() {
         this.props.toggleIsFatching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
+            {
+                withCredentials: true
+            })
             .then(response => {
                 this.props.toggleIsFatching(false)
                 this.props.setusers(response.data.items)
@@ -42,7 +45,11 @@ class UsersСontainer extends React.Component<UsersComponentType> {
     onPageChanged = (p: number) => {
         this.props.setCurrentPage(p)
         this.props.toggleIsFatching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`,
+            {
+                withCredentials: true
+            }
+        )
             .then(response => {
                 this.props.toggleIsFatching(false)
                 this.props.setusers(response.data.items)
@@ -97,7 +104,14 @@ let mapStateToProps = (state: AppStateType) => {
 //         }
 //     }
 // }
-const UsersContainer = connect(mapStateToProps, {follow, unfollow, setusers, setCurrentPage, setTotalUsersCount, toggleIsFatching})(UsersСontainer)
+const UsersContainer = connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setusers,
+    setCurrentPage,
+    setTotalUsersCount,
+    toggleIsFatching
+})(UsersСontainer)
 
 
 export default UsersContainer
