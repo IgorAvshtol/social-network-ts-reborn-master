@@ -7,6 +7,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 
 // type AppType = {
@@ -22,7 +23,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
-                <Header/>
+                <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'

@@ -1,13 +1,15 @@
 let initialState = {
-    id: 0,
+    userId: 0,
     email: "",
-    login: ""
+    login: "",
+    isAuth: false
 }
 
 type UsersStateType = {
-    id: number,
+    userId: number,
     email: string,
-    login: string
+    login: string,
+    isAuth: boolean
 }
 
 
@@ -17,7 +19,8 @@ const authReducer = (state: UsersStateType = initialState, action: FollowedTypes
         case "SET-USER-DATA":
             return {
                 ...state,
-                ...action.data
+                ...action.data,
+                isAuth: true
             }
         default:
             return state
@@ -25,7 +28,7 @@ const authReducer = (state: UsersStateType = initialState, action: FollowedTypes
 }
 
 
-type FollowedTypes = ReturnType<typeof setUserData>
+type FollowedTypes = ReturnType<typeof setAuthUserData>
 
 
 
@@ -33,9 +36,9 @@ const SET_USER_DATA = "SET-USER-DATA";
 
 
 
-export const setUserData = (id: number, email: string, login: string) => {
+export const setAuthUserData = (id: number, email: string, login: string) => {
     return {
-        type: SET_USER_DATA, data:{id, email, login}
+        type: SET_USER_DATA, data:{id, email, login }
     } as const
 }
 

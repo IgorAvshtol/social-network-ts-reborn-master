@@ -1,15 +1,43 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import s from './Header.module.css';
+import Header from "./Header";
+import axios from "axios";
+import {AppStateType} from "../../redux/redux-store";
+import {connect} from "react-redux";
+import {setAuthUserData} from "../../redux/auth-reducer";
 
-const  Header = () => {
-    return <header className={s.header}>
-    <img src='https://s.starladder.com/uploads/team_logo/7/7/c/1/thumb_270_2eb66ca0fa0345cc85ad134e7bad0789.jpeg'/>
-        <div className={s.loginBlock}>
-            <NavLink to={"/login"}>Login</NavLink>
-        </div>
-        </header>
 
+type UsersComponentType = {
+    isAuth: boolean
+    login: string
+    setAuthUserData: (id: number, email: string, login: string) => void
 }
 
-export default Header;
+class HeaderContainer extends React.Component<UsersComponentType> {
+
+    componentDidMount() {
+
+        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
+            withCredentials: true
+        })
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    let {id, email, login} = response.data.data
+                    this.props.setAuthUserData(id, email, login)
+                }
+            })
+    }
+
+    render() {
+        return <Header {...this.props}/>;
+    }
+}
+
+const mapStateToProps = (state: AppStateType) => {
+    return {
+        login: state.auth.login,
+        isAuth: state.auth.isAuth
+    }
+}
+
+export default connect(mapStateToProps, {setAuthUserData})(HeaderContainer)
+
