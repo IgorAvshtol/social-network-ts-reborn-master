@@ -2,16 +2,16 @@ import React from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
-    follow,
+    follow, FollowingProgressType,
     setCurrentPage,
     setTotalUsersCount,
-    setusers, toggleIsFatching,
+    setusers, toggleFollowingProgress, toggleIsFatching,
     unfollow,
     UsersType
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import loader from "./../../assets/images/loader.png"
-import { usersAPI} from "../../api/api";
+import {usersAPI} from "../../api/api";
 
 type UsersComponentType = {
     users: Array<UsersType>
@@ -25,6 +25,9 @@ type UsersComponentType = {
     setCurrentPage: (currentPage: number) => void,
     isFatching: boolean
     toggleIsFatching: (isFatching: boolean) => void
+    toggleFollowingProgress: (isFatching: boolean, userId: number) => void
+    followingInProgress: Array<FollowingProgressType>
+
 }
 
 class UsersСontainer extends React.Component<UsersComponentType> {
@@ -32,19 +35,19 @@ class UsersСontainer extends React.Component<UsersComponentType> {
     componentDidMount() {
         this.props.toggleIsFatching(true)
         usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-                this.props.toggleIsFatching(false)
-                this.props.setusers(data.items)
-                this.props.setTotalUsersCount(data.totalCount)
-            })
+            this.props.toggleIsFatching(false)
+            this.props.setusers(data.items)
+            this.props.setTotalUsersCount(data.totalCount)
+        })
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
         this.props.toggleIsFatching(true)
         usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-                this.props.toggleIsFatching(false)
-                this.props.setusers(data.items)
-            })
+            this.props.toggleIsFatching(false)
+            this.props.setusers(data.items)
+        })
     }
 
     render() {
@@ -57,6 +60,8 @@ class UsersСontainer extends React.Component<UsersComponentType> {
                    users={this.props.users}
                    follow={this.props.follow}
                    unfollow={this.props.unfollow}
+                   toggleFollowingProgress={this.props.toggleFollowingProgress}
+                   followingInProgress={this.props.followingInProgress}
             />
         </>
     }
@@ -69,7 +74,8 @@ let mapStateToProps = (state: AppStateType) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFatching: state.usersPage.isFatching
+        isFatching: state.usersPage.isFatching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
@@ -101,7 +107,8 @@ const UsersContainer = connect(mapStateToProps, {
     setusers,
     setCurrentPage,
     setTotalUsersCount,
-    toggleIsFatching
+    toggleIsFatching,
+    toggleFollowingProgress
 })(UsersСontainer)
 
 
