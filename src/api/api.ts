@@ -21,10 +21,12 @@ export const usersAPI = {
 
     },
     unfollow(userID: number) {
-       return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`)
+        return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`)
 
-    }
-
+    },
+    auth() {
+        return instance.get(`auth/me`)
+            }
 }
 
 

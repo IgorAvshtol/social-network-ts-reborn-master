@@ -1,3 +1,7 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
+import {setTotalUsersCount, setusers, toggleIsFatching} from "./users-reducer";
+
 let initialState = {
     posts: [
         {id: 1, message: 'Hi, how are you', likesCount: 1},
@@ -121,5 +125,7 @@ export const setUserProfile = (profile: ProfileType) => {
         profile
     } as const
 }
+
+
 
 export default profileReducer
