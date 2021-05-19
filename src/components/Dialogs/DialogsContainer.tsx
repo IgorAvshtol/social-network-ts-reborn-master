@@ -40,7 +40,8 @@ import {Dispatch} from "redux";
 // }
     let mapStateToProps = (state: AppStateType) => {
         return {
-            messagePage: state.messagePage
+            messagePage: state.messagePage,
+            isAuth: state.auth.isAuth
         }
     }
 

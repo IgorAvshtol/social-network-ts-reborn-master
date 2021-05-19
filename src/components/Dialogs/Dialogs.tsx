@@ -3,6 +3,7 @@ import s from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {MessagePageType, RootStateType} from "../../redux/message-reducer";
+import { Redirect } from "react-router-dom";
 
 
 
@@ -10,6 +11,7 @@ type MyDialogsType = {
     updateNewMessageBody: () => void
     sendMessage: (body: string) => void
     messagePage: MessagePageType
+    isAuth: boolean
     // newMessageBody: string
     // data: MessagePageType
 
@@ -36,6 +38,11 @@ const Dialogs = (props: MyDialogsType) => {
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.sendMessage(e.currentTarget.value)
     }
+
+    if (!props.isAuth) return <Redirect to={"/login"}/> //(this.props.isAuth===false)
+                                                           // если не залогинены - попадаем на страницу /login
+
+
 
     return (
         <div className={s.dialogs}>
