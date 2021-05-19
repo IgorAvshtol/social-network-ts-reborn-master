@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
 import {setTotalUsersCount, setusers, toggleIsFatching} from "./users-reducer";
+import {setAuthUserData} from "./auth-reducer";
 
 let initialState = {
     posts: [
@@ -64,7 +65,7 @@ export type ProfileType = {
     }
 }
 
-const profileReducer = (state: ProfilePageType = initialState, action: ProfileReducersActionsTypes): ProfilePageType  => {
+const profileReducer = (state: ProfilePageType = initialState, action: ProfileReducersActionsTypes): ProfilePageType => {
     switch (action.type) {
         case "ADD-POST":
             let newPost: PostsType = {
@@ -126,6 +127,12 @@ export const setUserProfile = (profile: ProfileType) => {
     } as const
 }
 
-
+export const getUserProfile = (userID: string) => {
+    return (dispatch: Dispatch) => {
+        usersAPI.getProfile(userID).then(response => {
+            dispatch(setUserProfile(response.data))
+        })
+    }
+}
 
 export default profileReducer

@@ -27,7 +27,7 @@ type UsersComponentType = {
     // toggleIsFatching: (isFatching: boolean) => void
     // toggleFollowingProgress: (isFatching: boolean, userId: number) => void
     followingInProgress: Array<FollowingProgressType>
-    getUsers : (currentPage: number, pageSize: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
 
 }
 
@@ -63,7 +63,7 @@ class UsersСontainer extends React.Component<UsersComponentType> {
                    users={this.props.users}
                    follow={this.props.follow}
                    unfollow={this.props.unfollow}
-                   // toggleFollowingProgress={this.props.toggleFollowingProgress}
+                // toggleFollowingProgress={this.props.toggleFollowingProgress}
                    followingInProgress={this.props.followingInProgress}
             />
         </>

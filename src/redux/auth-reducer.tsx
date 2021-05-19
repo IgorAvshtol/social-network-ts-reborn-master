@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {authAPI, usersAPI} from "../api/api";
 import {setTotalUsersCount, setusers, toggleIsFatching} from "./users-reducer";
 
 let initialState = {
@@ -46,9 +46,9 @@ export const setAuthUserData = (id: number, email: string, login: string) => {
     } as const
 }
 
-export const getAuth = () => {
+export const getAuthUserData = () => {
     return (dispatch: Dispatch) => {
-        usersAPI.auth().then(response => {
+        authAPI.me().then(response => {
             if (response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data
                 dispatch(setAuthUserData(id, email, login))
