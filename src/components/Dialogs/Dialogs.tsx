@@ -39,8 +39,8 @@ const Dialogs = (props: MyDialogsType) => {
         props.sendMessage(e.currentTarget.value)
     }
 
-    if (!props.isAuth) return <Redirect to={"/login"}/> //(this.props.isAuth===false)
-                                                           // если не залогинены - попадаем на страницу /login
+    // if (!props.isAuth) return <Redirect to={"/login"}/> //(this.props.isAuth===false)
+    //                                                        // если не залогинены - попадаем на страницу /login
 
 
 

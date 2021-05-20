@@ -4,6 +4,9 @@ import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
+import {withRouter} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {getUserProfile} from "../../redux/profile-reducer";
 
 //
 // type MyDialogsType = {
@@ -41,7 +44,7 @@ import {Dispatch} from "redux";
     let mapStateToProps = (state: AppStateType) => {
         return {
             messagePage: state.messagePage,
-            isAuth: state.auth.isAuth
+            // isAuth: state.auth.isAuth
         }
     }
 
@@ -55,7 +58,10 @@ import {Dispatch} from "redux";
             }
         }
     }
- const DialogsContainer = connect(mapStateToProps,mapDispatchToProps) (Dialogs)
+
+let AuthRedirectComponent = withAuthRedirect(Dialogs)
+
+const DialogsContainer = connect(mapStateToProps,mapDispatchToProps) (AuthRedirectComponent)
 
 
 export default DialogsContainer
