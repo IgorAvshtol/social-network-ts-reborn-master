@@ -3,7 +3,7 @@ import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/messa
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {getUserProfile} from "../../redux/profile-reducer";
@@ -59,9 +59,13 @@ import {getUserProfile} from "../../redux/profile-reducer";
         }
     }
 
-let AuthRedirectComponent = withAuthRedirect(Dialogs)
-
-const DialogsContainer = connect(mapStateToProps,mapDispatchToProps) (AuthRedirectComponent)
-
-
-export default DialogsContainer
+export default compose<React.ComponentType>(                                              ///это вместо нижележащего
+    connect(mapStateToProps,mapDispatchToProps),
+    withAuthRedirect
+)(Dialogs)
+// let AuthRedirectComponent = withAuthRedirect(Dialogs)
+//
+// const DialogsContainer = connect(mapStateToProps,mapDispatchToProps) (AuthRedirectComponent)
+//
+//
+// export default DialogsContainer

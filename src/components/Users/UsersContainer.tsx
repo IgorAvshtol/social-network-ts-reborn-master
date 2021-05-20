@@ -11,6 +11,8 @@ import {
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import loader from "./../../assets/images/loader.png"
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 type UsersComponentType = {
@@ -104,16 +106,26 @@ let mapStateToProps = (state: AppStateType) => {
 //         }
 //     }
 // }
-const UsersContainer = connect(mapStateToProps, {
-    follow,
-    unfollow,
-    // setusers,
-    // setCurrentPage,
-    setTotalUsersCount,
-    // toggleIsFatching,
-    // toggleFollowingProgress,
-    getUsers
-})(UsersСontainer)
 
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {
+        follow,
+        unfollow,
+        setTotalUsersCount,
+        getUsers
+    }),
+    withAuthRedirect
+)(UsersСontainer)
 
-export default UsersContainer
+// export default withAuthRedirect(connect(mapStateToProps, {
+//     follow,
+//     unfollow,
+//     // setusers,
+//     // setCurrentPage,
+//     setTotalUsersCount,
+//     // toggleIsFatching,
+//     // toggleFollowingProgress,
+//     getUsers
+// })(UsersСontainer))
+
+// export default UsersContainer
