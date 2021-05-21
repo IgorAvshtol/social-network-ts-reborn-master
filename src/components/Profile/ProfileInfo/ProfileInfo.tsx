@@ -6,6 +6,8 @@ import ProfileStatus from "./ProfileStatus";
 
 type ProfileInfoComponentType = {
     profile: ProfileType
+    userStatus: string
+    updateStatus: (status: string) => void
 
 }
 
@@ -18,7 +20,7 @@ const ProfileInfo = (props: ProfileInfoComponentType) => {
                 <img src={props.profile.photos.large}/>
                 {props.profile.contacts.twitter}
             </div>
-            <ProfileStatus status={'AXAXXAXAXAXA'}/>
+            <ProfileStatus userStatus={props.userStatus} updateStatus={props.updateStatus}/>
         </div>
     )
 }

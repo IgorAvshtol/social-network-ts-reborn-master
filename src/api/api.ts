@@ -1,5 +1,4 @@
 import axios from "axios";
-import {getUsers} from "../redux/users-reducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -24,10 +23,23 @@ export const usersAPI = {
         return instance.delete(`follow/${userID}`)
 
     },
-    getProfile(userID: string) {
-        return instance.get(`profile/${userID}`)
+    getProfile(userID: string) {                                          //Сделали так чтобы не переименовывать везде
+        console.warn("Obsolet method.Please, use profileAPI")
+        return profileAPI.getProfile(userID)
     }
 
+}
+
+export const profileAPI = {
+    getProfile(userID: string) {
+        return instance.get(`profile/` + userID)
+    },
+    getStatus(userID: string) {
+        return instance.get(`profile/status/` + userID)
+    },
+    updateStatus(status: string) {
+        return instance.put(`profile/status/`, {status: status})  //потому что запрос "put" передаём body = тексту status
+    }
 }
 
 export const authAPI = {

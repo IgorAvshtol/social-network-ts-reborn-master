@@ -1,7 +1,6 @@
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
-import {setTotalUsersCount, setusers, toggleIsFatching} from "./users-reducer";
-import {setAuthUserData} from "./auth-reducer";
+import {profileAPI, usersAPI} from "../api/api";
+
 
 let initialState = {
     posts: [
@@ -28,12 +27,15 @@ let initialState = {
             small: "",
             large: ""
         }
-    }
+    },
+    userStatus: "",
+    status: ""
+
 }
 
 export type PostsType = {
     id: number
-    message: string
+    message: any
     likesCount: number
 }
 
@@ -42,6 +44,8 @@ export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
     profile: ProfileType
+    userStatus: string
+    status: string
 }
 
 export type ProfileType = {
@@ -64,6 +68,10 @@ export type ProfileType = {
         large: string
     }
 }
+
+
+
+
 
 const profileReducer = (state: ProfilePageType = initialState, action: ProfileReducersActionsTypes): ProfilePageType => {
     switch (action.type) {
@@ -90,6 +98,16 @@ const profileReducer = (state: ProfilePageType = initialState, action: ProfileRe
                 ...state, profile: action.profile,
             }
         }
+        case "SET-USER-STATUS": {
+            return {
+                ...state, userStatus: action.userStatus,
+            }
+        }
+        case "SET-STATUS": {
+            return {
+                ...state, status: action.status,
+            }
+        }
         default:
             return state
     }
@@ -99,12 +117,17 @@ const profileReducer = (state: ProfilePageType = initialState, action: ProfileRe
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
-
+const SET_USER_STATUS = "SET-USER-STATUS";
+const SET_STATUS = "SET-STATUS";
 
 export type ProfileReducersActionsTypes =
     ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof updateNewPostTextActionCreator>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setUserStatus>
+    | ReturnType<typeof setStatus>
+
+
 
 export const addPostActionCreator = () => {
     return {
@@ -127,10 +150,49 @@ export const setUserProfile = (profile: ProfileType) => {
     } as const
 }
 
+export const setUserStatus = (userStatus: string) => {
+    return {
+        type: SET_USER_STATUS,
+        userStatus
+    } as const
+}
+
+export const setStatus = (status: string) => {
+    return {
+        type: SET_STATUS,
+        status
+    } as const
+}
+
+
+
+
 export const getUserProfile = (userID: string) => {
     return (dispatch: Dispatch) => {
         usersAPI.getProfile(userID).then(response => {
-            dispatch(setUserProfile(response.data))
+            if (response.data.resultCode === 0) {
+                dispatch(setUserProfile(response.data))
+            }
+        })
+    }
+}
+
+export const getUserStatus = (userID: string) => {
+    return (dispatch: Dispatch) => {
+        profileAPI.getStatus(userID).then(response => {
+            dispatch(setUserStatus(response.data))
+        })
+    }
+}
+
+export const updateStatus = (status: string) => {
+    return (dispatch: Dispatch) => {
+        profileAPI.updateStatus(status).then(response => {
+            console.log(status)
+            console.log(response)
+            if (response.data.data.resultCode === 0) {
+                dispatch(setStatus(status))
+            }
         })
     }
 }
