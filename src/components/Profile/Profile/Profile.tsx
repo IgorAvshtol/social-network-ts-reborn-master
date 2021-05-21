@@ -8,13 +8,15 @@ import {Redirect} from "react-router-dom";
 type ProfileComponentType = {
     profile: ProfileType
 
+
+
 }
 
 const Profile = (props: ProfileComponentType) => {
 
     return (
         <div>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile} />
             <MyPostsContainer/>
         </div>
     )

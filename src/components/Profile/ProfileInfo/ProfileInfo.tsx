@@ -1,10 +1,12 @@
 import React from 'react'
 import s from '././ProfileInfo.module.css';
 import {ProfileType} from "../../../redux/profile-reducer";
+import ProfileStatus from "./ProfileStatus";
 
 
 type ProfileInfoComponentType = {
     profile: ProfileType
+
 }
 
 
@@ -16,6 +18,7 @@ const ProfileInfo = (props: ProfileInfoComponentType) => {
                 <img src={props.profile.photos.large}/>
                 {props.profile.contacts.twitter}
             </div>
+            <ProfileStatus status={'AXAXXAXAXAXA'}/>
         </div>
     )
 }

@@ -13,6 +13,7 @@ export type ProfileContainerType = {
     // setUserProfile: (profile: ProfileType) => void
     getUserProfile: (userID: string) => void
     isAuth: boolean
+
 }
 
 export type MapStatePropsType = {
