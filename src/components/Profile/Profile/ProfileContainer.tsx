@@ -1,10 +1,9 @@
 import React from 'react';
-import axios from "axios";
 import {AppStateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
 import Profile from "./Profile";
 import {getUserProfile, getUserStatus, ProfileType, updateStatus} from "../../../redux/profile-reducer";
-import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
+import { RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
@@ -14,14 +13,14 @@ export type ProfileContainerType = {
     getUserProfile: (userID: string) => void
     isAuth: boolean
     getUserStatus: (userID: string) => void
-    userStatus: string
     updateStatus: (status: string) => void
+    status: string
 
 }
 
 export type MapStatePropsType = {
     profile: ProfileType
-    userStatus: string
+    // userStatus: string
     status: string
 }
 
@@ -39,7 +38,7 @@ class ProfileContainer extends React.Component<OwnProfileContainerType> {
 
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = "2"
+            userId = "10940"
         }
         this.props.getUserProfile(userId)
         this.props.getUserStatus(userId)
@@ -55,7 +54,8 @@ class ProfileContainer extends React.Component<OwnProfileContainerType> {
         // если не залогинены - попадаем на страницу /login
         return <>
 
-            <Profile {...this.props} profile={this.props.profile} userStatus={this.props.userStatus} updateStatus={this.props.updateStatus}/>
+            <Profile {...this.props} profile={this.props.profile} status={this.props.status}
+                     updateStatus={this.props.updateStatus}/>
         </>
     }
 }
@@ -63,7 +63,6 @@ class ProfileContainer extends React.Component<OwnProfileContainerType> {
 
 let mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
-    userStatus: state.profilePage.userStatus,
     status: state.profilePage.status
 
 })
@@ -71,7 +70,7 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => ({
 export default compose<React.ComponentType>(
     connect(mapStateToProps,
         {getUserProfile, getUserStatus, updateStatus}),
-    withAuthRedirect,
+    // withAuthRedirect,
     withRouter
 )(ProfileContainer)
 

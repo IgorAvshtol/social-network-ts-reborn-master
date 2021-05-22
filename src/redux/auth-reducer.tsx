@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
-import {authAPI, usersAPI} from "../api/api";
-import {setTotalUsersCount, setusers, toggleIsFatching} from "./users-reducer";
+import {authAPI} from "../api/api";
+
 
 let initialState = {
     userId: 0,

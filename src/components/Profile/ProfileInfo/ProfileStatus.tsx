@@ -1,26 +1,23 @@
-import React, {ChangeEvent, ChangeEventHandler, useState} from 'react'
+import React, {ChangeEvent, useEffect, useState} from 'react'
 
 
 type ProfileStatusType = {
-    userStatus: string
+    status: string
     updateStatus: (status: string) => void
 }
 
 
 const ProfileStatus = (props: ProfileStatusType) => {
 
-    let startStatus = props.userStatus
 
-
-    let [newstatus, setNewStatus] = useState(props.userStatus)
+    let [newstatus, setNewStatus] = useState(props.status)
     let [editMode, setEditMode] = useState(false)
-
 
 
     const onClickChangeStatus = () => {
         setEditMode(true)
     }
- 
+
     const afterChangeStatus = () => {
         setEditMode(false)
         props.updateStatus(newstatus)
@@ -30,12 +27,17 @@ const ProfileStatus = (props: ProfileStatusType) => {
         setNewStatus(e.currentTarget.value)
     }
 
+    useEffect(() => {
+            setNewStatus(props.status)
+            console.log(newstatus)
+        }, [props.status]
+    )
 
 
     return (<div>
             {!editMode &&
             <div>
-                <span onClick={onClickChangeStatus}>{props.userStatus}</span>
+                <span onClick={onClickChangeStatus}>{props.status || "no status"}</span>
             </div>
             }
             {editMode &&
@@ -47,8 +49,13 @@ const ProfileStatus = (props: ProfileStatusType) => {
             </div>
             }
 
+
         </div>
     )
 }
 
 export default ProfileStatus;
+
+function componentDidUpdate() {
+    throw new Error('Function not implemented.')
+}

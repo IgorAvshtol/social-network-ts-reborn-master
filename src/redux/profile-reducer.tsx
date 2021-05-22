@@ -28,7 +28,6 @@ let initialState = {
             large: ""
         }
     },
-    userStatus: "",
     status: ""
 
 }
@@ -44,7 +43,6 @@ export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
     profile: ProfileType
-    userStatus: string
     status: string
 }
 
@@ -68,9 +66,6 @@ export type ProfileType = {
         large: string
     }
 }
-
-
-
 
 
 const profileReducer = (state: ProfilePageType = initialState, action: ProfileReducersActionsTypes): ProfilePageType => {
@@ -98,11 +93,6 @@ const profileReducer = (state: ProfilePageType = initialState, action: ProfileRe
                 ...state, profile: action.profile,
             }
         }
-        case "SET-USER-STATUS": {
-            return {
-                ...state, userStatus: action.userStatus,
-            }
-        }
         case "SET-STATUS": {
             return {
                 ...state, status: action.status,
@@ -117,16 +107,13 @@ const profileReducer = (state: ProfilePageType = initialState, action: ProfileRe
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
-const SET_USER_STATUS = "SET-USER-STATUS";
 const SET_STATUS = "SET-STATUS";
 
 export type ProfileReducersActionsTypes =
     ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof updateNewPostTextActionCreator>
     | ReturnType<typeof setUserProfile>
-    | ReturnType<typeof setUserStatus>
     | ReturnType<typeof setStatus>
-
 
 
 export const addPostActionCreator = () => {
@@ -150,12 +137,6 @@ export const setUserProfile = (profile: ProfileType) => {
     } as const
 }
 
-export const setUserStatus = (userStatus: string) => {
-    return {
-        type: SET_USER_STATUS,
-        userStatus
-    } as const
-}
 
 export const setStatus = (status: string) => {
     return {
@@ -165,12 +146,10 @@ export const setStatus = (status: string) => {
 }
 
 
-
-
 export const getUserProfile = (userID: string) => {
     return (dispatch: Dispatch) => {
         usersAPI.getProfile(userID).then(response => {
-            if (response.data.resultCode === 0) {
+            if (response.status === 200) {
                 dispatch(setUserProfile(response.data))
             }
         })
@@ -180,7 +159,8 @@ export const getUserProfile = (userID: string) => {
 export const getUserStatus = (userID: string) => {
     return (dispatch: Dispatch) => {
         profileAPI.getStatus(userID).then(response => {
-            dispatch(setUserStatus(response.data))
+            dispatch(setStatus(response.data))
+            console.log(response.data)
         })
     }
 }
@@ -188,10 +168,10 @@ export const getUserStatus = (userID: string) => {
 export const updateStatus = (status: string) => {
     return (dispatch: Dispatch) => {
         profileAPI.updateStatus(status).then(response => {
-            console.log(status)
-            console.log(response)
-            if (response.data.data.resultCode === 0) {
+            debugger
+            if (response.data.resultCode === 0) {
                 dispatch(setStatus(status))
+                console.log(status);
             }
         })
     }
