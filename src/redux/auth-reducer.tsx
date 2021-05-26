@@ -6,14 +6,18 @@ let initialState = {
     userId: 0,
     email: "",
     login: "",
-    isAuth: false
+    isAuth: false,
+    password: "",
+    rememberMe: false
 }
 
 type UsersStateType = {
     userId: number,
     email: string,
     login: string,
-    isAuth: boolean
+    isAuth: boolean,
+    password: string,
+    rememberMe: boolean
 }
 
 

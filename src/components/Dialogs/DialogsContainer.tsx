@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from "react";
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/message-reducer";
+import {sendMessageCreator} from "../../redux/message-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
@@ -50,12 +50,12 @@ import {getUserProfile} from "../../redux/profile-reducer";
 
     let mapDispatchToProps = (dispatch: Dispatch) => {
         return {
-            updateNewMessageBody: () => {
-                dispatch(sendMessageCreator())
+            updateNewMessageBody: (onNewMessageBody: string) => {     //из dialogs приходит newMessageBody, потом newMessageBody диспатчим в action creator, а он изменяет стейт
+                dispatch(sendMessageCreator(onNewMessageBody))
             },
-            sendMessage: (body: string) => {
-                dispatch(updateNewMessageBodyCreator(body))
-            }
+            // sendMessage: (body: string) => {
+            //     dispatch(updateNewMessageBodyCreator(body))
+            // }
         }
     }
 
