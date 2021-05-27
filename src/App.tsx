@@ -1,8 +1,6 @@
 import './App.css';
 import React from 'react';
-import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
-import Profile from "./components/Profile/Profile/Profile";
 import {BrowserRouter, Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
@@ -11,13 +9,6 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginPage from "./components/Login/Login";
 
 
-// type AppType = {
-//     // state: RootStateType
-//     // dispatch: (action: ActionsTypes) => void
-//     // store: AppStateType
-//     // store: ForReduxStoreType
-//
-// }
 
 
 const App = () => {

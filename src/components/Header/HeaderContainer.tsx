@@ -3,7 +3,7 @@ import Header from "./Header";
 import axios from "axios";
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
-import {getAuthUserData, setAuthUserData} from "../../redux/auth-reducer";
+import {getAuthUserData, logout, setAuthUserData} from "../../redux/auth-reducer";
 
 
 type UsersComponentType = {
@@ -11,6 +11,8 @@ type UsersComponentType = {
     login: string
     // setAuthUserData: (id: number, email: string, login: string) => void
     getAuthUserData: () => void
+    logout: () => void
+
 }
 
 class HeaderContainer extends React.Component<UsersComponentType> {
@@ -30,7 +32,7 @@ class HeaderContainer extends React.Component<UsersComponentType> {
     }
 
     render() {
-        return <Header {...this.props}/>;
+        return <Header {...this.props} />;
     }
 }
 
@@ -41,5 +43,5 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
-export default connect(mapStateToProps, {getAuthUserData})(HeaderContainer)
+export default connect(mapStateToProps, {getAuthUserData, logout})(HeaderContainer)
 

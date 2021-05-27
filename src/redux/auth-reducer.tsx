@@ -1,5 +1,7 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
+import {ThunkAction} from "redux-thunk";
+import {AppActionType, AppStateType} from "./redux-store";
 
 
 let initialState = {
@@ -20,15 +22,19 @@ type UsersStateType = {
     rememberMe: boolean
 }
 
+export type LoginType = {
+    email: string,
+    password: string,
+    rememberMe: boolean
+}
 
-
-const authReducer = (state: UsersStateType = initialState, action: FollowedTypes): UsersStateType => {
+const authReducer = (state: UsersStateType = initialState, action: AuthActionType): UsersStateType => {
     switch (action.type) {
         case "SET-USER-DATA":
             return {
                 ...state,
                 ...action.data,
-                isAuth: true
+                // isAuth: true
             }
         default:
             return state
@@ -36,32 +42,49 @@ const authReducer = (state: UsersStateType = initialState, action: FollowedTypes
 }
 
 
-type FollowedTypes = ReturnType<typeof setAuthUserData>
-
+export type AuthActionType = ReturnType<typeof setAuthUserData>
 
 
 const SET_USER_DATA = "SET-USER-DATA";
 
 
-
-export const setAuthUserData = (id: number, email: string, login: string) => {
+export const setAuthUserData = (id: number, email: string, login: string, isAuth: boolean) => {
     return {
-        type: SET_USER_DATA, data:{id, email, login }
+        type: SET_USER_DATA, data: {id, email, login, isAuth}
     } as const
 }
 
-export const getAuthUserData = () => {
+
+export const getAuthUserData = (): any => {
     return (dispatch: Dispatch) => {
         authAPI.me().then(response => {
             if (response.data.resultCode === 0) {   //ЕСЛИ ЗАЛОГИНЕНЫ, ТОГДА СЕТАЕМ resultCode === 0
                 let {id, email, login} = response.data.data
-                dispatch(setAuthUserData(id, email, login))
+                dispatch(setAuthUserData(id, email, login, true))
             }
         })
     }
 }
 
+export const login = (email: string, password: string, rememberMe: boolean) => {
+    return (dispatch: Dispatch) => {
+        authAPI.login(email, password, rememberMe).then(response => {
+            if (response.data.resultCode === 0) {   //ЕСЛИ ЗАЛОГИНЕНЫ, ТОГДА СЕТАЕМ resultCode === 0
+                dispatch(getAuthUserData())   //после вводв логина и мейла заново диспатчим АС
+            }
+        })
+    }
+}
 
+export const logout = () => {
+    return (dispatch: Dispatch) => {
+        authAPI.logout().then(response => {
+            if (response.data.resultCode === 0) {   //ЕСЛИ ЗАЛОГИНЕНЫ, ТОГДА СЕТАЕМ resultCode === 0
+                dispatch(setAuthUserData(0, "", "", false))   //обнуляем все значения и сетаем чтобы выйти из системы
+            }
+        })
+    }
+}
 
 
 export default authReducer

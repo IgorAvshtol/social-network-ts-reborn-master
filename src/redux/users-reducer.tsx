@@ -38,7 +38,7 @@ export type LocationUsersType = {
 
 export type FollowingProgressType = {}
 
-const usersReducer = (state: UsersStateType = initialState, action: FollowedTypes): UsersStateType => {
+const usersReducer = (state: UsersStateType = initialState, action: UsersActionType): UsersStateType => {
     switch (action.type) {
         case "FOLLOW":
             return {
@@ -81,7 +81,7 @@ const usersReducer = (state: UsersStateType = initialState, action: FollowedType
 }
 
 
-type FollowedTypes =
+export type UsersActionType =
     ReturnType<typeof followSuccess>
     | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setusers>
