@@ -23,7 +23,7 @@ export const usersAPI = {
         return instance.delete(`follow/${userID}`)
 
     },
-    getProfile(userID: string) {                                          //Сделали так чтобы не переименовывать везде
+    getProfile(userID: number) {                                          //Сделали так чтобы не переименовывать везде
         console.warn("Obsolet method.Please, use profileAPI")
         return profileAPI.getProfile(userID)
     }
@@ -31,10 +31,10 @@ export const usersAPI = {
 }
 
 export const profileAPI = {
-    getProfile(userID: string) {
+    getProfile(userID: number) {
         return instance.get(`profile/` + userID)
     },
-    getStatus(userID: string) {
+    getStatus(userID: number) {
         return instance.get(`profile/status/` + userID)
     },
     updateStatus(status: string) {
@@ -46,8 +46,8 @@ export const authAPI = {
     me() {
         return instance.get(`auth/me`)
     },
-    login(email: string,password: string,rememberMe=false) {
-        return instance.post(`auth/login`, {email,password,rememberMe})
+    login(email: string, password: string, rememberMe = false) {
+        return instance.post(`auth/login`, {email, password, rememberMe})
     },
     logout() {
         return instance.delete(`auth/login`)

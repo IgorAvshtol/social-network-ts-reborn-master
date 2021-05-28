@@ -130,7 +130,7 @@ export const setStatus = (status: string) => {
 }
 
 
-export const getUserProfile = (userID: string) => {
+export const getUserProfile = (userID: number) => {
     return (dispatch: Dispatch) => {
         usersAPI.getProfile(userID).then(response => {
             if (response.status === 200) {
@@ -140,7 +140,7 @@ export const getUserProfile = (userID: string) => {
     }
 }
 
-export const getUserStatus = (userID: string) => {
+export const getUserStatus = (userID: number) => {
     return (dispatch: Dispatch) => {
         profileAPI.getStatus(userID).then(response => {
             dispatch(setStatus(response.data))

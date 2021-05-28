@@ -1,11 +1,10 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
-import {ThunkAction} from "redux-thunk";
-import {AppActionType, AppStateType} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 
 let initialState = {
-    userId: 0,
+    userId: 10940,
     email: "",
     login: "",
     isAuth: false,
@@ -71,6 +70,9 @@ export const login = (email: string, password: string, rememberMe: boolean) => {
         authAPI.login(email, password, rememberMe).then(response => {
             if (response.data.resultCode === 0) {   //ЕСЛИ ЗАЛОГИНЕНЫ, ТОГДА СЕТАЕМ resultCode === 0
                 dispatch(getAuthUserData())   //после вводв логина и мейла заново диспатчим АС
+            } else {
+                let errorMessage = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+                dispatch(stopSubmit('login', {_error: errorMessage}))
             }
         })
     }
