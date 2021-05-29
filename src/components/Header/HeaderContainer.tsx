@@ -10,15 +10,15 @@ type UsersComponentType = {
     isAuth: boolean
     login: string
     // setAuthUserData: (id: number, email: string, login: string) => void
-    getAuthUserData: () => void
+
     logout: () => void
 
 }
 
 class HeaderContainer extends React.Component<UsersComponentType> {
 
-    componentDidMount() {
-        this.props.getAuthUserData()
+    // componentDidMount() {
+    //     this.props.getAuthUserData()
 
         //     axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
         //         withCredentials: true // проверяем авторизованы ли мы
@@ -29,7 +29,7 @@ class HeaderContainer extends React.Component<UsersComponentType> {
         //                 this.props.setAuthUserData(id, email, login)
         //             }
         //         })
-    }
+
 
     render() {
         return <Header {...this.props} />;
@@ -43,5 +43,5 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
-export default connect(mapStateToProps, {getAuthUserData, logout})(HeaderContainer)
+export default connect(mapStateToProps, { logout})(HeaderContainer)
 
