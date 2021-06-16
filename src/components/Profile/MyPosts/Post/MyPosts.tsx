@@ -36,12 +36,6 @@ const MyPosts = (props: MyPostsType) => {
         <div className={s.postsBlock}>
             <h2>My posts</h2>
             <AddNewPost onSubmit={onAddPost}/>
-            {/*<div>*/}
-            {/*    <textarea onChange={addPostСhange} value={props.newPostText}/>*/}
-            {/*</div>*/}
-            {/*<div>*/}
-            {/*    <button onClick={onAddPost}>Add post</button>*/}
-            {/*</div>*/}
             <div className={s.posts}>
                 {postsElement}
             </div>
@@ -53,7 +47,8 @@ const AddNewPostForm: React.FC<InjectedFormProps<PostFormType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field name={"newPostText"} component={Textarea} placeholder={"enter new post"} validate={[required, maxLength10]}/>
+                <Field name={"newPostText"} component={Textarea} placeholder={"enter new post"}
+                       validate={[required, maxLength10]}/>
             </div>
             <div>
                 <button>Add post</button>

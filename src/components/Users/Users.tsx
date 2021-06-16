@@ -10,6 +10,7 @@ import {usersAPI} from "../../api/api";
 type UsersFunctionalType = {
     users: Array<UsersType>,
     pageSize: number,
+    currentPage: number,
     totalUsersCount: number,
     follow: (userId: number) => void,
     unfollow: (userId: number) => void,
@@ -30,7 +31,7 @@ let Users = (props: UsersFunctionalType) => {
     return <div>
         <div>
             {pages.map(p => {
-                return <span className={styles.selectedPage} onClick={() => props.onPageChanged(p)}>{p}</span>
+                return <span className={props.currentPage === p ? styles.selectedPage : styles.nothing } onClick={() => props.onPageChanged(p)}>{p}</span>
             })}
         </div>
         {

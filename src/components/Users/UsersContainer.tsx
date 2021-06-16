@@ -3,9 +3,7 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
     follow, FollowingProgressType, getUsers,
-    setCurrentPage,
     setTotalUsersCount,
-    setusers, toggleFollowingProgress, toggleIsFatching,
     unfollow,
     UsersType
 } from "../../redux/users-reducer";
@@ -13,6 +11,13 @@ import Users from "./Users";
 import loader from "./../../assets/images/loader.png"
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage, getFollowInProgress,
+    getIsFatching,
+    getPageSize,
+    getTotalUsersCount,
+    getUserSelector
+} from "../../redux/users-selectors";
 
 
 type UsersComponentType = {
@@ -61,6 +66,7 @@ class UsersСontainer extends React.Component<UsersComponentType> {
             {this.props.isFatching ? <img src={loader}/> : null}
             <Users totalUsersCount={this.props.totalUsersCount}
                    pageSize={this.props.pageSize}
+                   currentPage={this.props.currentPage}
                    onPageChanged={this.onPageChanged}
                    users={this.props.users}
                    follow={this.props.follow}
@@ -75,12 +81,12 @@ class UsersСontainer extends React.Component<UsersComponentType> {
 
 let mapStateToProps = (state: AppStateType) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFatching: state.usersPage.isFatching,
-        followingInProgress: state.usersPage.followingInProgress
+        users: getUserSelector(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFatching: getIsFatching(state),
+        followingInProgress: getFollowInProgress(state)
     }
 }
 

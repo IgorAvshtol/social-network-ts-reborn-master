@@ -131,33 +131,38 @@ export const setStatus = (status: string) => {
 
 
 export const getUserProfile = (userID: number) => {
-    return (dispatch: Dispatch) => {
-        usersAPI.getProfile(userID).then(response => {
-            if (response.status === 200) {
-                dispatch(setUserProfile(response.data))
-            }
-        })
+    return async (dispatch: Dispatch) => {
+        let response = await usersAPI.getProfile(userID) //Ключевое слово await заставит интерпретатор JavaScript ждать до тех пор, пока промис справа от await не выполнится. После чего оно вернёт его результат, и выполнение кода продолжится.
+        if (response.status === 200) {
+            dispatch(setUserProfile(response.data))
+        }
     }
 }
 
+// export const getUserProfile = (userID: number) => {
+//     return (dispatch: Dispatch) => {
+//         usersAPI.getProfile(userID).then(response => {
+//             if (response.status === 200) {
+//                 dispatch(setUserProfile(response.data))
+//             }
+//         })
+//     }
+// }
+
 export const getUserStatus = (userID: number) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.getStatus(userID).then(response => {
-            dispatch(setStatus(response.data))
-            console.log(response.data)
-        })
+    return async (dispatch: Dispatch) => {
+        let response = await profileAPI.getStatus(userID)
+        dispatch(setStatus(response.data))
+        console.log(response.data)
     }
 }
 
 export const updateStatus = (status: string) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.updateStatus(status).then(response => {
-            debugger
-            if (response.data.resultCode === 0) {
-                dispatch(setStatus(status))
-                console.log(status);
-            }
-        })
+    return async (dispatch: Dispatch) => {
+        let response = await profileAPI.updateStatus(status)
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
     }
 }
 

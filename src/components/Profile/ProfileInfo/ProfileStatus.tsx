@@ -29,7 +29,6 @@ const ProfileStatus = (props: ProfileStatusType) => {
 
     useEffect(() => {
             setNewStatus(props.status)
-            console.log(newstatus)
         }, [props.status]
     )
 

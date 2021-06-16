@@ -55,36 +55,46 @@ export const setAuthUserData = (id: number, email: string, login: string, isAuth
 
 
 export const getAuthUserData = (): any => {
-    return (dispatch: Dispatch) => {
-        authAPI.me().then(response => {
-            if (response.data.resultCode === 0) {   //ЕСЛИ ЗАЛОГИНЕНЫ, ТОГДА СЕТАЕМ resultCode === 0
-                let {id, email, login} = response.data.data
-                dispatch(setAuthUserData(id, email, login, true))
-            }
-        })
+    return async (dispatch: Dispatch) => {
+        let response = await authAPI.me()
+        if (response.data.resultCode === 0) {   //ЕСЛИ ЗАЛОГИНЕНЫ, ТОГДА СЕТАЕМ resultCode === 0
+            let {id, email, login} = response.data.data
+            dispatch(setAuthUserData(id, email, login, true))
+        }
     }
 }
 
 export const login = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: Dispatch) => {
-        authAPI.login(email, password, rememberMe).then(response => {
-            if (response.data.resultCode === 0) {   //ЕСЛИ ЗАЛОГИНЕНЫ, ТОГДА СЕТАЕМ resultCode === 0
-                dispatch(getAuthUserData())   //после вводв логина и мейла заново диспатчим АС
-            } else {
-                let errorMessage = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
-                dispatch(stopSubmit('login', {_error: errorMessage}))
-            }
-        })
+    return async (dispatch: Dispatch) => {
+        let response = await authAPI.login(email, password, rememberMe)
+        if (response.data.resultCode === 0) {   //ЕСЛИ ЗАЛОГИНЕНЫ, ТОГДА СЕТАЕМ resultCode === 0
+            dispatch(getAuthUserData())   //после вводв логина и мейла заново диспатчим АС
+        } else {
+            let errorMessage = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+            dispatch(stopSubmit('login', {_error: errorMessage}))
+        }
     }
 }
 
+// export const login = (email: string, password: string, rememberMe: boolean) => {
+//     return (dispatch: Dispatch) => {
+//         authAPI.login(email, password, rememberMe).then(response => {
+//             if (response.data.resultCode === 0) {   //ЕСЛИ ЗАЛОГИНЕНЫ, ТОГДА СЕТАЕМ resultCode === 0
+//                 dispatch(getAuthUserData())   //после вводв логина и мейла заново диспатчим АС
+//             } else {
+//                 let errorMessage = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+//                 dispatch(stopSubmit('login', {_error: errorMessage}))
+//             }
+//         })
+//     }
+// }
+
 export const logout = () => {
-    return (dispatch: Dispatch) => {
-        authAPI.logout().then(response => {
-            if (response.data.resultCode === 0) {   //ЕСЛИ ЗАЛОГИНЕНЫ, ТОГДА СЕТАЕМ resultCode === 0
-                dispatch(setAuthUserData(0, "", "", false))   //обнуляем все значения и сетаем чтобы выйти из системы
-            }
-        })
+    return async (dispatch: Dispatch) => {
+        let response = await authAPI.logout()
+        if (response.data.resultCode === 0) {   //ЕСЛИ ЗАЛОГИНЕНЫ, ТОГДА СЕТАЕМ resultCode === 0
+            dispatch(setAuthUserData(0, "", "", false))   //обнуляем все значения и сетаем чтобы выйти из системы
+        }
     }
 }
 

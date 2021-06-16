@@ -143,39 +143,36 @@ export const toggleFollowingProgress = (isFatching: boolean, userId: number) => 
 }
 
 export const getUsers = (currentPage: number, pageSize: number) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(toggleIsFatching(true))
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
-            dispatch(toggleIsFatching(false))
-            dispatch(setusers(data.items))
-            dispatch(setTotalUsersCount(data.totalCount))
-        })
+        dispatch(setCurrentPage(currentPage))//для отрисовки циферки выбранной страницы
+        let data = await usersAPI.getUsers(currentPage, pageSize)
+        dispatch(toggleIsFatching(false))
+        dispatch(setusers(data.items))
+        dispatch(setTotalUsersCount(data.totalCount))
     }
 }
 
 export const follow = (userId: number) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(toggleFollowingProgress(true, userId))
-        usersAPI.follow(userId)
-            .then(response => {
-                if (response.data.resultCode == 0) {
-                    dispatch(followSuccess(userId))
-                }
-                dispatch(toggleFollowingProgress(false, userId))
-            })
+        let response = await usersAPI.follow(userId)
+        if (response.data.resultCode == 0) {
+            dispatch(followSuccess(userId))
+        }
+        dispatch(toggleFollowingProgress(false, userId))
+
     }
 }
 
 export const unfollow = (userId: number) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(toggleFollowingProgress(true, userId))
-        usersAPI.unfollow(userId)
-            .then(response => {
-                if (response.data.resultCode == 0) {
-                    dispatch(unfollowSuccess(userId))
-                }
-                dispatch(toggleFollowingProgress(false, userId))
-            })
+        let response = await usersAPI.unfollow(userId)
+        if (response.data.resultCode == 0) {
+            dispatch(unfollowSuccess(userId))
+        }
+        dispatch(toggleFollowingProgress(false, userId))
 
     }
 }
