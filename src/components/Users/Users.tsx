@@ -1,10 +1,11 @@
 import styles from "./users.module.css";
 import userPhoto from "../../assets/images/users.jpg";
-import React from "react";
+import React, {useState} from "react";
 import {FollowingProgressType, getUsers, UsersType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
-import {usersAPI} from "../../api/api";
+import paginatorStyles from "./Paginator.module.css"
+import Paginator from "./Paginator";
+
 
 
 type UsersFunctionalType = {
@@ -29,11 +30,7 @@ let Users = (props: UsersFunctionalType) => {
         pages.push(i)
     }
     return <div>
-        <div>
-            {pages.map(p => {
-                return <span className={props.currentPage === p ? styles.selectedPage : styles.nothing } onClick={() => props.onPageChanged(p)}>{p}</span>
-            })}
-        </div>
+        <Paginator pageSize={props.pageSize} currentPage={props.currentPage} totalUsersCount={props.totalUsersCount} onPageChanged={props.onPageChanged}/>
         {
             props.users.map(u => <div key={u.id}>
                 <span>
@@ -44,8 +41,8 @@ let Users = (props: UsersFunctionalType) => {
                     </div>
                     <div>
                         {u.followed
-                            ? <button disabled={props.followingInProgress.some(id=> id === u.id)} onClick={() => {
-                               props.unfollow(u.id)
+                            ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                props.unfollow(u.id)
                                 // props.toggleFollowingProgress(true, u.id)
                                 // usersAPI.unfollow(u.id)
                                 // // axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
@@ -61,7 +58,7 @@ let Users = (props: UsersFunctionalType) => {
                                 //         props.toggleFollowingProgress(false, u.id)
                                 //     })
                             }}>Unfollow</button>
-                            : <button disabled={props.followingInProgress.some(id=> id === u.id)} onClick={() => {
+                            : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
                                 props.follow(u.id)
                                 // props.toggleFollowingProgress(true, u.id)
                                 // usersAPI.follow(u.id)
@@ -95,4 +92,8 @@ let Users = (props: UsersFunctionalType) => {
 
 }
 
+
+
+
 export default Users
+

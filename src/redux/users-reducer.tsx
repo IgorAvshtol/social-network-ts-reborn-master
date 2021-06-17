@@ -7,7 +7,8 @@ let initialState = {
     totalUsersCount: 25,
     currentPage: 1,  ///cо старта будет страница номер 1
     isFatching: true,
-    followingInProgress: []
+    followingInProgress: [],
+    portionSize: 10
 }
 
 export type UsersStateType = {
@@ -16,7 +17,8 @@ export type UsersStateType = {
     totalUsersCount: number,
     currentPage: number,
     isFatching: boolean,
-    followingInProgress: Array<FollowingProgressType>
+    followingInProgress: Array<FollowingProgressType>,
+    portionSize: number
 }
 
 export type UsersType = {
