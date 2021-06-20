@@ -3,7 +3,6 @@ import React from 'react';
 import Navbar from "./components/Navbar/Navbar";
 import {BrowserRouter, Route, withRouter} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginPage from "./components/Login/Login";
@@ -11,6 +10,7 @@ import {connect} from "react-redux";
 import {initializeApp} from "./redux/app-reducer";
 import {AppStateType} from "./redux/redux-store";
 import Preloader from "./components/Common/Preloader";
+import UsersСontainerFC from "./components/Users/UserContainerFC";
 
 type getUserAppType = {
     initializeApp: () => void
@@ -40,7 +40,7 @@ class App extends React.Component<getUserAppType> {
                         <Route path='/profile/:userId?'
                                render={() => <ProfileContainer/>}/>
                         <Route path='/users'
-                               render={() => <UsersContainer/>}/>
+                               render={() => <UsersСontainerFC/>}/>
                         <Route path='/login'
                                render={() => <LoginPage/>}/>
                     </div>

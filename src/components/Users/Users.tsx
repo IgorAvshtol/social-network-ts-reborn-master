@@ -1,38 +1,62 @@
 import styles from "./users.module.css";
 import userPhoto from "../../assets/images/users.jpg";
-import React, {useState} from "react";
-import {FollowingProgressType, getUsers, UsersType} from "../../redux/users-reducer";
+import React from "react";
 import {NavLink} from "react-router-dom";
-import paginatorStyles from "./Paginator.module.css"
 import Paginator from "./Paginator";
-
+import {useDispatch, useSelector} from "react-redux";
+import {
+    getCurrentPage,
+    getFollowInProgress,
+    getPageSize,
+    getTotalUsersCount,
+    getUserSelector
+} from "../../redux/users-selectors";
+import {follow, unfollow} from "../../redux/users-reducer";
 
 
 type UsersFunctionalType = {
-    users: Array<UsersType>,
-    pageSize: number,
-    currentPage: number,
-    totalUsersCount: number,
-    follow: (userId: number) => void,
-    unfollow: (userId: number) => void,
+    // users: Array<UsersType>,
+    // pageSize: number,
+    // currentPage: number,
+    // totalUsersCount: number,
+    // follow: (userId: number) => void,
+    // unfollow: (userId: number) => void,
     onPageChanged: (p: number) => void
-    followingInProgress: Array<FollowingProgressType>
+    // followingInProgress: Array<FollowingProgressType>
     // toggleFollowingProgress: (isFatching: boolean, userId: number) => void
 }
 
 let Users = (props: UsersFunctionalType) => {
 
+    //
+    // let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    // let pages = []
+    //
+    // for (let i = 1; i <= pagesCount; i++) {
+    //     pages.push(i)
+    // }
 
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-    let pages = []
+    const users = useSelector(getUserSelector)
+    const pageSize = useSelector(getPageSize)
+    const totalUsersCount = useSelector(getTotalUsersCount)
+    const currentPage = useSelector(getCurrentPage)
+    const followingInProgress = useSelector(getFollowInProgress)
 
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
+    const dispatch = useDispatch()
+
+    const Follow = (userId: number) => {
+        dispatch(follow(userId))
     }
+
+    const Unfollow = (userId: number) => {
+        dispatch(unfollow(userId))
+    }
+
+
     return <div>
-        <Paginator pageSize={props.pageSize} currentPage={props.currentPage} totalUsersCount={props.totalUsersCount} onPageChanged={props.onPageChanged}/>
+        <Paginator pageSize={pageSize} currentPage={currentPage} totalUsersCount={totalUsersCount} onPageChanged={props.onPageChanged}/>
         {
-            props.users.map(u => <div key={u.id}>
+            users.map(u => <div key={u.id}>
                 <span>
                     <div>
                         <NavLink to={"/profile/" + u.id}>
@@ -41,8 +65,8 @@ let Users = (props: UsersFunctionalType) => {
                     </div>
                     <div>
                         {u.followed
-                            ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                                props.unfollow(u.id)
+                            ? <button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
+                                Unfollow(u.id)
                                 // props.toggleFollowingProgress(true, u.id)
                                 // usersAPI.unfollow(u.id)
                                 // // axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
@@ -58,8 +82,8 @@ let Users = (props: UsersFunctionalType) => {
                                 //         props.toggleFollowingProgress(false, u.id)
                                 //     })
                             }}>Unfollow</button>
-                            : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                                props.follow(u.id)
+                            : <button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
+                                Follow(u.id)
                                 // props.toggleFollowingProgress(true, u.id)
                                 // usersAPI.follow(u.id)
                                 // axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
