@@ -10,12 +10,16 @@ import {connect} from "react-redux";
 import {initializeApp} from "./redux/app-reducer";
 import {AppStateType} from "./redux/redux-store";
 import Preloader from "./components/Common/Preloader";
-import UsersСontainerFC from "./components/Users/UserContainerFC";
+import {withSuspense} from "./hoc/withSuspense";
+// import UsersСontainerFC from "./components/Users/UserContainerFC";
+
 
 type getUserAppType = {
     initializeApp: () => void
     initialized: boolean
 }
+
+const UsersContainerFC = React.lazy(()=> import ("./components/Users/UserContainerFC"));
 
 class App extends React.Component<getUserAppType> {
 
@@ -40,7 +44,8 @@ class App extends React.Component<getUserAppType> {
                         <Route path='/profile/:userId?'
                                render={() => <ProfileContainer/>}/>
                         <Route path='/users'
-                               render={() => <UsersСontainerFC/>}/>
+                               render={withSuspense(UsersContainerFC)}/>
+
                         <Route path='/login'
                                render={() => <LoginPage/>}/>
                     </div>
