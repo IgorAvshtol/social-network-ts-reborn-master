@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 import Navbar from "./components/Navbar/Navbar";
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter, Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ProfileContainer from "./components/Profile/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -34,7 +34,7 @@ class App extends React.Component<getUserAppType> {
 
 
         return (
-            <BrowserRouter>
+            <HashRouter>
                 <div className='app-wrapper'>
                     <HeaderContainer/>
                     <Navbar/>
@@ -50,7 +50,7 @@ class App extends React.Component<getUserAppType> {
                                render={() => <LoginPage/>}/>
                     </div>
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         );
     }
 }

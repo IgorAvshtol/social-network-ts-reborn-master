@@ -28,13 +28,6 @@ type UsersFunctionalType = {
 
 let Users = (props: UsersFunctionalType) => {
 
-    //
-    // let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-    // let pages = []
-    //
-    // for (let i = 1; i <= pagesCount; i++) {
-    //     pages.push(i)
-    // }
 
     const users = useSelector(getUserSelector)
     const pageSize = useSelector(getPageSize)
