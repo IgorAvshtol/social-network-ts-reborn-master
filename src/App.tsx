@@ -11,7 +11,7 @@ import {initializeApp} from "./redux/app-reducer";
 import {AppStateType} from "./redux/redux-store";
 import Preloader from "./components/Common/Preloader";
 import {withSuspense} from "./hoc/withSuspense";
-// import UsersСontainerFC from "./components/Users/UserContainerFC";
+
 
 
 type getUserAppType = {
