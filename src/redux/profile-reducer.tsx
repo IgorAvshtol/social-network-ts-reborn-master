@@ -13,6 +13,7 @@ let initialState = {
         lookingForAJob: false,
         lookingForAJobDescription: "",
         fullName: "",
+        aboutMe:"",
         contacts: {
             github: "",
             vk: "",
@@ -50,6 +51,7 @@ export type ProfileType = {
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
+    aboutMe: string
     contacts: {
         github: string
         vk: string
@@ -168,7 +170,6 @@ export const getUserStatus = (userID: number) => {
     return async (dispatch: Dispatch) => {
         let response = await profileAPI.getStatus(userID)
         dispatch(setStatus(response.data))
-        console.log(response.data)
     }
 }
 
@@ -186,6 +187,16 @@ export const updateAvatar = (photos: any) => {
         let response = await profileAPI.updateAvatar(photos)
         if (response.data.resultCode === 0) {
             dispatch(setPhotoSuccess(response.data.data.photos))
+        }
+    }
+}
+
+export const saveProfile = (profile: any) => {
+    return async (dispatch: Dispatch) => {
+        let response = await profileAPI.saveProfile(profile)
+        console.log(profile);
+        if (response.data.resultCode === 0) {
+            // dispatch(setPhotoSuccess(response.data.data.photos))
         }
     }
 }
