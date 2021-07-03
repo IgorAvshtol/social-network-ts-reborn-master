@@ -3,10 +3,10 @@ import s from '././ProfileInfo.module.css';
 import {ProfileType, saveProfile, updateAvatar} from "../../../redux/profile-reducer";
 import ProfileStatus from "./ProfileStatus";
 import userPhoto from "../../../assets/images/users.jpg";
-import {useDispatch} from "react-redux";
-import {Form, Formik} from "formik";
-import {Field} from "formik";
-import ProfileData from "./FormData";
+import {useDispatch, useSelector} from "react-redux";
+import ProfileData from "./ProfileData";
+import {AppStateType} from "../../../redux/redux-store";
+import {Field, Form, Formik} from "formik";
 
 
 type ProfileInfoComponentType = {
@@ -14,6 +14,10 @@ type ProfileInfoComponentType = {
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
+}
+
+type DataFormType = {
+    offEditMode: () => void
 }
 
 export type ContactType = {
@@ -39,42 +43,50 @@ const ProfileInfo = (props: ProfileInfoComponentType) => {
 
 
     const [editMode, setEditMode] = useState(false)
-    return (<div>
-            <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large || userPhoto} className={s.mainFoto}/>
+
+        return (<div>
+                <div className={s.descriptionBlock}>
+                    <img src={props.profile.photos.large || userPhoto} className={s.mainFoto}/>
+                </div>
+                {isOwner && <input type={'file'} onChange={addPhoto}/>}
+                {editMode ? <ProfileDataForm offEditMode={() => {
+                    setEditMode(false)
+                }}/> : <ProfileData goToEditMode={() => {
+                    setEditMode(true)
+                }} profile={props.profile} isOwner={isOwner}/>}
+
+
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+
+
             </div>
-            {isOwner && <input type={'file'} onChange={addPhoto}/>}
-            {editMode ? <ProfileDataForm/> : <ProfileData goToEditMode={() => {
-                setEditMode(true)
-            }} profile={props.profile} isOwner={isOwner}/>}
-
-
-            <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
-
-
-        </div>
-    )
+        )
 }
 
-const ProfileDataForm = () => {
+const ProfileDataForm = (props: DataFormType) => {
 
     const dispatch = useDispatch()
-    const saveProfileData = (profile:any) => {
+    const saveProfileData = (profile: any) => {
         dispatch(saveProfile(profile))
     }
+    const fullName = useSelector<AppStateType, string>(state => state.profilePage.profile.fullName)
+    const lookingForAJobDescription = useSelector<AppStateType, string>(state => state.profilePage.profile.lookingForAJobDescription)
+    const aboutMe = useSelector<AppStateType, string>(state => state.profilePage.profile.aboutMe)
 
 
     return <div>
         <Formik
-            initialValues={{fullName: '', lookingForAJobDescription: '', aboutMe: ''}}
+            initialValues={{fullName: fullName, lookingForAJobDescription: lookingForAJobDescription, aboutMe: aboutMe}}
             validate={values => {
                 const errors = {};
                 return errors;
             }}
             onSubmit={(values, {setSubmitting}) => {
                 saveProfileData(values)
-                alert(JSON.stringify(values, null, 2));
+
+                // alert(JSON.stringify(values, null, 2));
                 setSubmitting(false);
+                props.offEditMode()
 
             }}
         >
@@ -84,13 +96,14 @@ const ProfileDataForm = () => {
                         <b>Full name</b>: <Field type="fullName" name="fullName"/>
                     </div>
                     <div>
-                        <b>lookingForAJobDescription</b>: <Field type="lookingForAJobDescription" name="lookingForAJobDescription"/>
+                        <b>lookingForAJobDescription</b>: <Field type="lookingForAJobDescription"
+                                                                 name="lookingForAJobDescription"/>
                     </div>
                     <div>
                         <b>aboutMe</b>: <Field type="aboutMe" name="aboutMe"/>
                     </div>
                     <button type="submit" disabled={isSubmitting}>
-                        Submit
+                        Save
                     </button>
                 </Form>
             )}
@@ -98,7 +111,9 @@ const ProfileDataForm = () => {
     </div>
 }
 
+
 export const Contact = ({contactTitle, contactValue}: any) => {
     return <div className={s.contact}><b>{contactTitle}</b>: {contactValue}</div>
+
 }
 export default ProfileInfo;

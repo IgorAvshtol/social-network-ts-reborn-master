@@ -1,5 +1,7 @@
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
+import {useSelector} from "react-redux";
+import {AppStateType} from "./redux-store";
 
 
 let initialState = {
@@ -192,11 +194,14 @@ export const updateAvatar = (photos: any) => {
 }
 
 export const saveProfile = (profile: any) => {
-    return async (dispatch: Dispatch) => {
+
+    return async (dispatch: Dispatch<any>, getState: any) => {
+        // const userId = useSelector<AppStateType, any>(state => state.auth.userId)
+        const userId = getState().auth.userId
         let response = await profileAPI.saveProfile(profile)
         console.log(profile);
         if (response.data.resultCode === 0) {
-            // dispatch(setPhotoSuccess(response.data.data.photos))
+            dispatch(getUserProfile(userId))
         }
     }
 }
