@@ -21,12 +21,12 @@ const ProfileData = (props: ProfileDataType) => {
         <div>
             <b>aboutMe</b>: {props.profile.aboutMe}
         </div>
-        <div>
-            <b>Contacts</b>: {Object.keys(props.profile.contacts).map((key) => {
-            return <Contact key={key} contactTitle={key}
-                            contactValue={props.profile.contacts[key as keyof ContactType]}/>
-        })}
-        </div>
+        {/*<div>*/}
+        {/*    <b>Contacts</b>: {Object.keys(props.profile.contacts).map((key) => {*/}
+        {/*    return <Contact key={key} contactTitle={key}*/}
+        {/*                    contactValue={props.profile.contacts[key as keyof ContactType]}/>*/}
+        {/*})}*/}
+        {/*</div>*/}
     </div>
 }
 

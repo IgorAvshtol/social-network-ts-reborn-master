@@ -14,9 +14,10 @@ type ProfileInfoComponentType = {
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
+    // offEditMode: () => void
 }
 
-type DataFormType = {
+type DataFormikType = {
     offEditMode: () => void
 }
 
@@ -63,7 +64,7 @@ const ProfileInfo = (props: ProfileInfoComponentType) => {
         )
 }
 
-const ProfileDataForm = (props: DataFormType) => {
+const ProfileDataForm = (props: DataFormikType) => {
 
     const dispatch = useDispatch()
     const saveProfileData = (profile: any) => {
@@ -72,7 +73,7 @@ const ProfileDataForm = (props: DataFormType) => {
     const fullName = useSelector<AppStateType, string>(state => state.profilePage.profile.fullName)
     const lookingForAJobDescription = useSelector<AppStateType, string>(state => state.profilePage.profile.lookingForAJobDescription)
     const aboutMe = useSelector<AppStateType, string>(state => state.profilePage.profile.aboutMe)
-
+    const profile = useSelector<AppStateType, any>(state => state.profilePage.profile)
 
     return <div>
         <Formik
@@ -102,6 +103,12 @@ const ProfileDataForm = (props: DataFormType) => {
                     <div>
                         <b>aboutMe</b>: <Field type="aboutMe" name="aboutMe"/>
                     </div>
+                    {/*<div>*/}
+                    {/*    <b>Contacts</b>: {Object.keys(profile.contacts).map((key) => {*/}
+                    {/*    return <div>*/}
+                    {/*        {key}:<Field key={key} name="contacts"/>*/}
+                    {/*    </div>})}*/}
+                    {/*</div>*/}
                     <button type="submit" disabled={isSubmitting}>
                         Save
                     </button>

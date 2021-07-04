@@ -194,7 +194,6 @@ export const updateAvatar = (photos: any) => {
 }
 
 export const saveProfile = (profile: any) => {
-
     return async (dispatch: Dispatch<any>, getState: any) => {
         // const userId = useSelector<AppStateType, any>(state => state.auth.userId)
         const userId = getState().auth.userId
