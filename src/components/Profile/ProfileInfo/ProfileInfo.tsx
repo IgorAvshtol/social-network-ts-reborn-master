@@ -9,6 +9,7 @@ import {AppStateType} from "../../../redux/redux-store";
 import {Field, Form, Formik} from "formik";
 
 
+
 type ProfileInfoComponentType = {
     profile: ProfileType
     status: string
@@ -45,23 +46,23 @@ const ProfileInfo = (props: ProfileInfoComponentType) => {
 
     const [editMode, setEditMode] = useState(false)
 
-        return (<div>
-                <div className={s.descriptionBlock}>
-                    <img src={props.profile.photos.large || userPhoto} className={s.mainFoto}/>
-                </div>
-                {isOwner && <input type={'file'} onChange={addPhoto}/>}
-                {editMode ? <ProfileDataForm offEditMode={() => {
-                    setEditMode(false)
-                }}/> : <ProfileData goToEditMode={() => {
-                    setEditMode(true)
-                }} profile={props.profile} isOwner={isOwner}/>}
-
-
-                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
-
-
+    return (<div>
+            <div className={s.descriptionBlock}>
+                <img src={props.profile.photos.large || userPhoto} className={s.mainFoto}/>
             </div>
-        )
+            {isOwner && <input type={'file'} onChange={addPhoto}/>}
+            {editMode ? <ProfileDataForm offEditMode={() => {
+                setEditMode(false)
+            }}/> : <ProfileData goToEditMode={() => {
+                setEditMode(true)
+            }} profile={props.profile} isOwner={isOwner}/>}
+
+
+            <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+
+
+        </div>
+    )
 }
 
 const ProfileDataForm = (props: DataFormikType) => {
@@ -73,7 +74,7 @@ const ProfileDataForm = (props: DataFormikType) => {
     const fullName = useSelector<AppStateType, string>(state => state.profilePage.profile.fullName)
     const lookingForAJobDescription = useSelector<AppStateType, string>(state => state.profilePage.profile.lookingForAJobDescription)
     const aboutMe = useSelector<AppStateType, string>(state => state.profilePage.profile.aboutMe)
-    const profile = useSelector<AppStateType, any>(state => state.profilePage.profile)
+
 
     return <div>
         <Formik
