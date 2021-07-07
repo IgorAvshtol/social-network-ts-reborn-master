@@ -1,9 +1,8 @@
 import React from 'react';
-import Header from "./Header";
-import axios from "axios";
+import {Header} from "./Header";
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
-import {getAuthUserData, logout, setAuthUserData} from "../../redux/auth-reducer";
+import {logout} from "../../redux/auth-reducer";
 
 
 type UsersComponentType = {
@@ -32,7 +31,7 @@ class HeaderContainer extends React.Component<UsersComponentType> {
 
 
     render() {
-        return <Header {...this.props} />;
+        return <Header />;
     }
 }
 

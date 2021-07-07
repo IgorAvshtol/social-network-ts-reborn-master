@@ -50,7 +50,7 @@ const ProfileInfo = (props: ProfileInfoComponentType) => {
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large || userPhoto} className={s.mainFoto}/>
             </div>
-            {isOwner && <input type={'file'} onChange={addPhoto}/>}
+            {isOwner && <input  type={"file"} accept={".jpg, .jpeg, .png"} onChange={addPhoto}/>}
             {editMode ? <ProfileDataForm offEditMode={() => {
                 setEditMode(false)
             }}/> : <ProfileData goToEditMode={() => {
