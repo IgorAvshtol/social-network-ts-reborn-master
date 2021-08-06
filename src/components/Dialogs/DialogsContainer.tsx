@@ -41,26 +41,26 @@ import {getUserProfile} from "../../redux/profile-reducer";
 //         //             data={state.messagePage}
 //     />
 // }
-    let mapStateToProps = (state: AppStateType) => {
-        return {
-            messagePage: state.messagePage,
-            // isAuth: state.auth.isAuth
-        }
+let mapStateToProps = (state: AppStateType) => {
+    return {
+        messagePage: state.messagePage,
+        // isAuth: state.auth.isAuth
     }
+}
 
-    let mapDispatchToProps = (dispatch: Dispatch) => {
-        return {
-            updateNewMessageBody: (onNewMessageBody: string) => {     //из dialogs приходит newMessageBody, потом newMessageBody диспатчим в action creator, а он изменяет стейт
-                dispatch(sendMessageCreator(onNewMessageBody))
-            },
-            // sendMessage: (body: string) => {
-            //     dispatch(updateNewMessageBodyCreator(body))
-            // }
-        }
+let mapDispatchToProps = (dispatch: Dispatch) => {
+    return {
+        updateNewMessageBody: (onNewMessageBody: string) => {     //из dialogs приходит newMessageBody, потом newMessageBody диспатчим в action creator, а он изменяет стейт
+            dispatch(sendMessageCreator(onNewMessageBody))
+        },
+        // sendMessage: (body: string) => {
+        //     dispatch(updateNewMessageBodyCreator(body))
+        // }
     }
+}
 
 export default compose<React.ComponentType>(                                              ///это вместо нижележащего
-    connect(mapStateToProps,mapDispatchToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     withAuthRedirect
 )(Dialogs)
 // let AuthRedirectComponent = withAuthRedirect(Dialogs)

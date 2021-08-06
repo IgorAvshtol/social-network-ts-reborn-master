@@ -33,8 +33,6 @@ const Dialogs = (props: MyDialogsType) => {
     )
 
 
-
-
     const addNewMessage = (value: DialogsFormType) => {
         props.updateNewMessageBody(value.onNewMessageBody)
 

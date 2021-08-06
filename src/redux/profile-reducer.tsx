@@ -1,13 +1,11 @@
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
-import {useSelector} from "react-redux";
-import {AppStateType} from "./redux-store";
 
 
 let initialState = {
     posts: [
-        {id: 1, message: 'Hi, how are you', likesCount: 1},
-        {id: 2, message: "It's my first post", likesCount: 1},
+        {id: 1, message: 'You are real samurai!!', likesCount: 1},
+        {id: 2, message: "It's my second post", likesCount: 1},
     ],
     // newPostText: "",
     profile: {
@@ -15,7 +13,7 @@ let initialState = {
         lookingForAJob: false,
         lookingForAJobDescription: "",
         fullName: "",
-        aboutMe:"",
+        aboutMe: "",
         contacts: {
             github: "",
             vk: "",
@@ -82,7 +80,11 @@ const profileReducer = (state: ProfilePageType = initialState, action: ProfileRe
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                // newPostText: ""
+            }
+        case "DELETE-POST":
+            return {
+                ...state,
+                posts: [...state.posts.filter(p => p.id !== action.id)],
             }
         case "SET-USER-PROFILE": {
             return {
@@ -109,12 +111,14 @@ const profileReducer = (state: ProfilePageType = initialState, action: ProfileRe
 
 
 const ADD_POST = "ADD-POST";
+const DELETE_POST = "DELETE-POST";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
 const SET_STATUS = "SET-STATUS";
 const SET_PHOTO_SUCCESS = "SET-PHOTO-SUCCESS"
 
 export type ProfileReducersActionsTypes =
     ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof deletePostActionCreator>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof setPhotoSuccess>
@@ -123,6 +127,12 @@ export type ProfileReducersActionsTypes =
 export const addPostActionCreator = (newPostText: string) => {
     return {
         type: ADD_POST, newPostText
+    } as const
+}
+
+export const deletePostActionCreator = (id: number) => {
+    return {
+        type: DELETE_POST, id
     } as const
 }
 

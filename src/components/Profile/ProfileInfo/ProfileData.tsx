@@ -1,3 +1,4 @@
+import { Button } from "antd";
 import React from "react";
 import {ProfileType} from "../../../redux/profile-reducer";
 
@@ -11,7 +12,7 @@ type ProfileDataType = {
 const ProfileData = (props: ProfileDataType) => {
     return <div>
         {props.isOwner && <div>
-            <button onClick={props.goToEditMode}>Edit</button>
+            <Button onClick={props.goToEditMode}>Edit</Button>
         </div>}
         <div>
             <b>Full name</b>: {props.profile.fullName}

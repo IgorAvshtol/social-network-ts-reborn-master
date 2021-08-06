@@ -12,6 +12,7 @@ import {
     getUserSelector
 } from "../../redux/users-selectors";
 import {follow, unfollow} from "../../redux/users-reducer";
+import { Button } from "antd";
 
 
 type UsersFunctionalType = {
@@ -58,7 +59,7 @@ let Users = (props: UsersFunctionalType) => {
                     </div>
                     <div>
                         {u.followed
-                            ? <button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
+                            ? <Button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
                                 Unfollow(u.id)
                                 // props.toggleFollowingProgress(true, u.id)
                                 // usersAPI.unfollow(u.id)
@@ -74,8 +75,8 @@ let Users = (props: UsersFunctionalType) => {
                                 //         }
                                 //         props.toggleFollowingProgress(false, u.id)
                                 //     })
-                            }}>Unfollow</button>
-                            : <button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
+                            }}>Unfollow</Button>
+                            : <Button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
                                 Follow(u.id)
                                 // props.toggleFollowingProgress(true, u.id)
                                 // usersAPI.follow(u.id)
@@ -91,7 +92,7 @@ let Users = (props: UsersFunctionalType) => {
                                 //         }
                                 //         props.toggleFollowingProgress(false, u.id)
                                 //     })
-                            }}>Follow</button>}
+                            }}>Follow</Button>}
                     </div>
                 </span>
                 <span>

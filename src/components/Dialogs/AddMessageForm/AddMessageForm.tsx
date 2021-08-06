@@ -3,6 +3,7 @@ import {Field, InjectedFormProps} from "redux-form";
 import {Textarea} from "../../Common/FormsControls/FormsControls";
 import {required} from "../../../utilits/validators/validators";
 import {DialogsFormType} from "../Dialogs";
+import {Button} from "antd";
 
 export const AddMessageForm: React.FC<InjectedFormProps<DialogsFormType>> = (props) => {
     return <div>
@@ -12,7 +13,7 @@ export const AddMessageForm: React.FC<InjectedFormProps<DialogsFormType>> = (pro
                        validate={[required]}/>
             </div>
             <div>
-                <button>Send</button>
+                <Button>Send</Button>
             </div>
         </form>
     </div>

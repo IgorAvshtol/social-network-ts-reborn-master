@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import styles from "./Paginator.module.css";
 import cn from "classnames"
+import { Button } from "antd";
 
 
 type PaginatorType = {
@@ -10,7 +11,10 @@ type PaginatorType = {
     onPageChanged: (p: number) => void
 }
 
+
 const Paginator = (props: PaginatorType) => {
+
+
 
     let portionSize = 10
 
@@ -27,9 +31,9 @@ const Paginator = (props: PaginatorType) => {
     let rightPortionPageNumber = portionNumber * portionSize
     return <div className={styles.paginator}>
         {portionNumber > 1 &&
-        <button onClick={() => {
+        <Button onClick={() => {
             setPortionNumber(portionNumber - 1)
-        }}>Prev</button>}
+        }}>Prev</Button>}
         {pages
             .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
             .map((p) => {
@@ -42,10 +46,11 @@ const Paginator = (props: PaginatorType) => {
                              }}>{p}</span>
             })}
         {portionCount > portionNumber &&
-        <button onClick={() => {
+        <Button onClick={() => {
             setPortionNumber(portionNumber + 1)
         }
-        }>gf</button>}
+        }>Next</Button>}
+
     </div>
 }
 

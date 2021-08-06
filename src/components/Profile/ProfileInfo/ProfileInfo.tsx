@@ -9,7 +9,6 @@ import {AppStateType} from "../../../redux/redux-store";
 import {Field, Form, Formik} from "formik";
 
 
-
 type ProfileInfoComponentType = {
     profile: ProfileType
     status: string
@@ -50,7 +49,7 @@ const ProfileInfo = (props: ProfileInfoComponentType) => {
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large || userPhoto} className={s.mainFoto}/>
             </div>
-            {isOwner && <input  type={"file"} accept={".jpg, .jpeg, .png"} onChange={addPhoto}/>}
+            {isOwner && <input type={"file"} accept={".jpg, .jpeg, .png"} onChange={addPhoto}/>}
             {editMode ? <ProfileDataForm offEditMode={() => {
                 setEditMode(false)
             }}/> : <ProfileData goToEditMode={() => {
